@@ -61,3 +61,5 @@ c:\users\shubham.bhagat\documents\visual studio 2013\Projects\UsedCarStock\UsedC
 c:\users\shubham.bhagat\documents\visual studio 2013\Projects\UsedCarStock\UsedCarStockAPI\obj\Debug\UsedCarStockAPI.csprojResolveAssemblyReference.cache
 c:\users\shubham.bhagat\documents\visual studio 2013\Projects\UsedCarStock\UsedCarStockAPI\obj\Debug\UsedCarStockAPI.dll
 c:\users\shubham.bhagat\documents\visual studio 2013\Projects\UsedCarStock\UsedCarStockAPI\obj\Debug\UsedCarStockAPI.pdb
+C:\Users\shubham.bhagat\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarStockAPI\bin\Dapper.dll
+C:\Users\shubham.bhagat\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarStockAPI\bin\MySql.Data.dll
