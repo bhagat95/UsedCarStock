@@ -63,3 +63,7 @@ c:\users\shubham.bhagat\documents\visual studio 2013\Projects\UsedCarStock\UsedC
 c:\users\shubham.bhagat\documents\visual studio 2013\Projects\UsedCarStock\UsedCarStockAPI\obj\Debug\UsedCarStockAPI.pdb
 C:\Users\shubham.bhagat\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarStockAPI\bin\Dapper.dll
 C:\Users\shubham.bhagat\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarStockAPI\bin\MySql.Data.dll
+C:\Users\shubham.bhagat\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarStockAPI\bin\UsedCarEntities.dll
+C:\Users\shubham.bhagat\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarStockAPI\bin\UsedCarEntities.pdb
+C:\Users\shubham.bhagat\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarStockAPI\bin\UsedCarRepository.dll
+C:\Users\shubham.bhagat\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarStockAPI\bin\UsedCarRepository.pdb

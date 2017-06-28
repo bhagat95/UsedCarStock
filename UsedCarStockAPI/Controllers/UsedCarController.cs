@@ -9,6 +9,8 @@ using Dapper;
 using MySql.Data.MySqlClient;
 using System.Data;
 using System.Configuration;
+using UsedCarEntities;
+using UsedCarDAL;
 
 namespace UsedCarStockAPI.Controllers
 {
@@ -31,8 +33,9 @@ namespace UsedCarStockAPI.Controllers
         }
 
         // GET api/values/5
-        public UsedCarModel Get(int id)
+        public UsedCarEntities.UsedCarModel Get(int id)
         {
+
             Console.WriteLine(id + " GET " + usedCarModel);
             return usedCarModel;
         }
@@ -40,41 +43,20 @@ namespace UsedCarStockAPI.Controllers
         UsedCarModel usedCarModel;
 
         // POST api/values
-        public UsedCarModel Post(UsedCarModel usedCarModel)
+        public String Post(UsedCarModel usedCarModel)
         {
-            usedCarModel.Id = 99;
-
-            IDbConnection connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"]
-                .ConnectionString);
-
-            
-            var param = new DynamicParameters();
-
-            param.Add("price",usedCarModel.Price);
-            param.Add("year", usedCarModel.Year);
-            param.Add("kilometer", usedCarModel.Kilometer);
-            param.Add("fuel_type_id", usedCarModel.FuelType);
-            param.Add("city_id", usedCarModel.City);
-            param.Add("color_id", usedCarModel.Color);
-            param.Add("fuel_economy", usedCarModel.FuelEconomy);
-            
-
-            //using (var con = connection)
-            //{
-            //    int rowsInserted = con.Execute("[AddStock_AS]", param, commandType:CommandType.StoredProcedure);
-            //}
-
-
-            Console.WriteLine(usedCarModel + "");
-            return usedCarModel;
+            UsedCarRepository usedCarRepository = new UsedCarRepository();
+            int id = usedCarRepository.AddCar(usedCarModel);
+           // Console.WriteLine(usedCarModel + "");
+            String uri = "http://localhost:59011/api/usedCar/" + id;
+            return uri;
         }
 
         // PUT api/values/5
-        public UsedCarModel Put(int id, UsedCarModel usedCarModel)
+        public void Put(int id, UsedCarModel usedCarModel)
         {
-            Console.WriteLine(id+" "+usedCarModel);
-            this.usedCarModel = usedCarModel;
-            return usedCarModel;
+            UsedCarRepository usedCarRepository = new UsedCarRepository();
+            usedCarRepository.UpdateCarDetails(id, usedCarModel);
         }
 
         // DELETE api/values/5
