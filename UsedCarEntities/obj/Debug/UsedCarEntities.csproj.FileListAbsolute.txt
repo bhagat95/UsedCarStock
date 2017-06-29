@@ -3,3 +3,8 @@ C:\Users\shubham.bhagat\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedC
 C:\Users\shubham.bhagat\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarEntities\obj\Debug\UsedCarEntities.csprojResolveAssemblyReference.cache
 C:\Users\shubham.bhagat\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarEntities\obj\Debug\UsedCarEntities.dll
 C:\Users\shubham.bhagat\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarEntities\obj\Debug\UsedCarEntities.pdb
+C:\Users\ashutosh.sharma\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarEntities\bin\Debug\UsedCarEntities.dll
+C:\Users\ashutosh.sharma\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarEntities\bin\Debug\UsedCarEntities.pdb
+C:\Users\ashutosh.sharma\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarEntities\obj\Debug\UsedCarEntities.dll
+C:\Users\ashutosh.sharma\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarEntities\obj\Debug\UsedCarEntities.pdb
+C:\Users\ashutosh.sharma\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarEntities\obj\Debug\UsedCarEntities.csprojResolveAssemblyReference.cache

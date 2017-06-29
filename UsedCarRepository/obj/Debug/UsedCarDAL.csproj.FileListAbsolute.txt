@@ -7,3 +7,13 @@ C:\Users\shubham.bhagat\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedC
 C:\Users\shubham.bhagat\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarRepository\obj\Debug\UsedCarRepository.dll
 C:\Users\shubham.bhagat\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarRepository\obj\Debug\UsedCarRepository.pdb
 C:\Users\shubham.bhagat\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarRepository\obj\Debug\UsedCarDAL.csprojResolveAssemblyReference.cache
+C:\Users\ashutosh.sharma\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarRepository\obj\Debug\UsedCarDAL.csprojResolveAssemblyReference.cache
+C:\Users\ashutosh.sharma\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarRepository\bin\Debug\UsedCarRepository.dll
+C:\Users\ashutosh.sharma\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarRepository\bin\Debug\UsedCarRepository.pdb
+C:\Users\ashutosh.sharma\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarRepository\bin\Debug\UsedCarBL.dll
+C:\Users\ashutosh.sharma\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarRepository\bin\Debug\UsedCarEntities.dll
+C:\Users\ashutosh.sharma\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarRepository\bin\Debug\Enyim.Caching.dll
+C:\Users\ashutosh.sharma\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarRepository\bin\Debug\UsedCarBL.pdb
+C:\Users\ashutosh.sharma\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarRepository\bin\Debug\UsedCarEntities.pdb
+C:\Users\ashutosh.sharma\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarRepository\obj\Debug\UsedCarRepository.dll
+C:\Users\ashutosh.sharma\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarRepository\obj\Debug\UsedCarRepository.pdb

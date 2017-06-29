@@ -50,6 +50,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\UsedCarBL\UsedCarBL.csproj">
+      <Project>{29758f2d-5bf0-4b30-83fc-401a589994f6}</Project>
+      <Name>UsedCarBL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UsedCarEntities\UsedCarEntities.csproj">
       <Project>{d65f45b2-1701-46fd-931f-4f1cc5f70e94}</Project>
       <Name>UsedCarEntities</Name>

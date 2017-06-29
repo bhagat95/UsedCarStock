@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsedCarEntities", "UsedCarE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsedCarDAL", "UsedCarRepository\UsedCarDAL.csproj", "{2A840E04-3D7E-493A-96A0-E870C89BDA63}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsedCarBL", "UsedCarBL\UsedCarBL.csproj", "{29758F2D-5BF0-4B30-83FC-401A589994F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{2A840E04-3D7E-493A-96A0-E870C89BDA63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A840E04-3D7E-493A-96A0-E870C89BDA63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A840E04-3D7E-493A-96A0-E870C89BDA63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29758F2D-5BF0-4B30-83FC-401A589994F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29758F2D-5BF0-4B30-83FC-401A589994F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29758F2D-5BF0-4B30-83FC-401A589994F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29758F2D-5BF0-4B30-83FC-401A589994F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
