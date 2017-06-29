@@ -7,3 +7,4 @@ C:\Users\shubham.bhagat\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedC
 C:\Users\shubham.bhagat\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarRepository\obj\Debug\UsedCarRepository.dll
 C:\Users\shubham.bhagat\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarRepository\obj\Debug\UsedCarRepository.pdb
 C:\Users\shubham.bhagat\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarRepository\obj\Debug\UsedCarDAL.csprojResolveAssemblyReference.cache
+C:\Users\shubham.bhagat\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarRepository\bin\Debug\RabbitMQ.Client.dll

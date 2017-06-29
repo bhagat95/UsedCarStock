@@ -67,3 +67,4 @@ C:\Users\shubham.bhagat\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedC
 C:\Users\shubham.bhagat\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarStockAPI\bin\UsedCarEntities.pdb
 C:\Users\shubham.bhagat\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarStockAPI\bin\UsedCarRepository.dll
 C:\Users\shubham.bhagat\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarStockAPI\bin\UsedCarRepository.pdb
+C:\Users\shubham.bhagat\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarStockAPI\bin\RabbitMQ.Client.dll

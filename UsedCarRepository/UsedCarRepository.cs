@@ -8,6 +8,7 @@ using UsedCarEntities;
 using MySql.Data.MySqlClient;
 using System.Configuration;
 using Dapper;
+using RabbitMQ.Client;
 
 namespace UsedCarDAL
 {
@@ -43,8 +44,8 @@ namespace UsedCarDAL
             Param.Add("Offset", Offset);
             using(var con = connection)
             {
-                IEnumerable<UsedCarModel> Result = con.Query<UsedCarModel> ("GetAllStock_AS", Param,
-                    commandType: CommandType.StoredProcedure);
+                IEnumerable<UsedCarModel> Result = null; //elastic search
+                //con.Query<UsedCarModel> ("GetAllStock_AS", Param, commandType: CommandType.StoredProcedure);
                 return Result;
             }
             
@@ -77,6 +78,9 @@ namespace UsedCarDAL
                 id = con.Query<int>("AddStock_AS", param, commandType: CommandType.StoredProcedure);
                 
             }
+
+            AddIdRabbitMQ(id.ElementAt(0));
+
             return id.ElementAt(0);
         }
 
@@ -109,9 +113,38 @@ namespace UsedCarDAL
                 response = con.Query<int>("EditStock_AS", param, commandType: CommandType.StoredProcedure);
 
             }
-            return response.ElementAt(0);
+            return 0; //response.ElementAt(0)
         }
 
+
+        public String AddIdRabbitMQ(int id)
+        {
+            try
+            {
+                var connectionFactory = new ConnectionFactory() { HostName = "172.16.0.11" };
+                IConnection connection = connectionFactory.CreateConnection();
+                IModel channel = connection.CreateModel();
+
+                String Queue = "UsedCarElasticSearchQueue";
+
+                channel.QueueDeclare(Queue, false, false, false, null);
+
+                byte[] message = Encoding.UTF8.GetBytes(id+"");
+
+                channel.BasicPublish("", Queue, null, message);
+                //Console.WriteLine("Press any key to exit");
+                //Console.ReadKey();
+                channel.Close();
+                connection.Close();
+                return "success";
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine(e + "");
+            }
+            return "exception";
+        }
 
         public object id { get; set; }
     }
