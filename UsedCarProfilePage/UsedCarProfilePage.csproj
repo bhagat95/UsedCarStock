@@ -44,7 +44,7 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MySql.Data">
-      <HintPath>..\..\Users\rahul.kushwaha\Downloads\Libs\MySql.Data.dll</HintPath>
+      <HintPath>..\..\..\..\..\Downloads\Dapper\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -174,7 +174,6 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\UsedCarModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -247,6 +246,16 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UsedCarEntities\UsedCarEntities.csproj">
+      <Project>{d65f45b2-1701-46fd-931f-4f1cc5f70e94}</Project>
+      <Name>UsedCarEntities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UsedCarRepository\UsedCarDAL.csproj">
+      <Project>{2a840e04-3d7e-493a-96a0-e870c89bda63}</Project>
+      <Name>UsedCarDAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

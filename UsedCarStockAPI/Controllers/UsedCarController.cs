@@ -24,7 +24,7 @@ namespace UsedCarStockAPI.Controllers
 
         //    return usedCarModel.Year;
         //}
-        UsedCarModel usedCarModel;
+        UsedCarModel usedCarModel = null;
 
         // GET api/values
         public IEnumerable<string> Get()

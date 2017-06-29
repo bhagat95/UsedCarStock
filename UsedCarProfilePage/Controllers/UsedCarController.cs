@@ -4,49 +4,40 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using UsedCarProfilePage.Models;
-using System.Web;
+//using System.Web;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
-using Dapper;
+using UsedCarDAL;
+using UsedCarEntities;
+
+
 
 namespace UsedCarProfilePage.Controllers
 {
-   
+
     public class UsedCarController : Controller
     {
-        
+
         public string strConnString = ConfigurationManager.ConnectionStrings["mysqlconnstr"].ConnectionString;
-        
+
         public ActionResult Details(int id)
         {
-            IEnumerable<UsedCarModel> data;
-             
-            IDbConnection conn = new MySqlConnection(strConnString);
-            var param = new DynamicParameters();
-            param.Add("id", id);
-            UsedCarModel res = new UsedCarModel();
             try
             {
-                using (var con = conn)
-                {
-                    data = con.Query<UsedCarModel>("GetSingleStock_AS", param, commandType: CommandType.StoredProcedure);
-                }
-
-                 res = data.ElementAt(0);
-
+                UsedCarModel usedCarModel = new UsedCarModel();
+                UsedCarRepository usedCarRepositoty = new UsedCarRepository();
+                usedCarModel = usedCarRepositoty.GetSingleCarMemCache(id);
+                return View("~/Views/UsedCar/ProfileView.cshtml", usedCarModel);
             }
-            catch (Exception)
+            catch (Exception err)
             {
-                res = null;
                 
+                throw;
             }
             
-
-
-
-            return View("~/Views/UsedCar/ProfileView.cshtml", res);
+            
         }
         //public string GetString()
         //{

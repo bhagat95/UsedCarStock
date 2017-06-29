@@ -1,6 +1,8 @@
 C:\Users\ashutosh.sharma\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarBL\bin\Debug\UsedCarBL.dll
 C:\Users\ashutosh.sharma\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarBL\bin\Debug\UsedCarBL.pdb
+C:\Users\ashutosh.sharma\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarBL\bin\Debug\Dapper.dll
 C:\Users\ashutosh.sharma\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarBL\bin\Debug\Enyim.Caching.dll
+C:\Users\ashutosh.sharma\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarBL\bin\Debug\MySql.Data.dll
 C:\Users\ashutosh.sharma\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarBL\bin\Debug\UsedCarEntities.dll
 C:\Users\ashutosh.sharma\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarBL\bin\Debug\UsedCarEntities.pdb
 C:\Users\ashutosh.sharma\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarBL\obj\Debug\UsedCarBL.csprojResolveAssemblyReference.cache
