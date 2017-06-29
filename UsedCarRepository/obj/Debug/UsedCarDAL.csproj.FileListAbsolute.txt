@@ -7,3 +7,10 @@ C:\Users\shubham.bhagat\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedC
 C:\Users\shubham.bhagat\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarRepository\obj\Debug\UsedCarRepository.dll
 C:\Users\shubham.bhagat\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarRepository\obj\Debug\UsedCarRepository.pdb
 C:\Users\shubham.bhagat\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarRepository\obj\Debug\UsedCarDAL.csprojResolveAssemblyReference.cache
+C:\carwale Training Project\UsedCarRepository\bin\Debug\UsedCarRepository.dll
+C:\carwale Training Project\UsedCarRepository\bin\Debug\UsedCarRepository.pdb
+C:\carwale Training Project\UsedCarRepository\bin\Debug\UsedCarEntities.dll
+C:\carwale Training Project\UsedCarRepository\bin\Debug\UsedCarEntities.pdb
+C:\carwale Training Project\UsedCarRepository\obj\Debug\UsedCarDAL.csprojResolveAssemblyReference.cache
+C:\carwale Training Project\UsedCarRepository\obj\Debug\UsedCarRepository.dll
+C:\carwale Training Project\UsedCarRepository\obj\Debug\UsedCarRepository.pdb
