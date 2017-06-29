@@ -24,7 +24,7 @@ namespace UsedCarStockAPI.Controllers
 
         //    return usedCarModel.Year;
         //}
-
+        UsedCarModel usedCarModel;
 
         // GET api/values
         public IEnumerable<string> Get()
@@ -37,10 +37,12 @@ namespace UsedCarStockAPI.Controllers
         {
 
             Console.WriteLine(id + " GET " + usedCarModel);
-            return usedCarModel;
+            UsedCarRepository usedCarRepositoty = new UsedCarRepository();
+            return usedCarRepositoty.GetSingleCarMemCache(id);
+            //return usedCarModel;
         }
 
-        UsedCarModel usedCarModel;
+
 
         // POST api/values
         public String Post(UsedCarModel usedCarModel)
@@ -60,8 +62,11 @@ namespace UsedCarStockAPI.Controllers
         }
 
         // DELETE api/values/5
-        public void Delete(int id)
+        public int Delete(int id)
         {
+            UsedCarRepository usedCarRepository = new UsedCarRepository();
+            int isDeleted = usedCarRepository.DeleteCar(id);
+            return isDeleted;
         }
 
     }

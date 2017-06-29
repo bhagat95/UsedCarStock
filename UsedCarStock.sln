@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElasticSearchDAL", "Elastic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarEntities", "CarEntities\CarEntities.csproj", "{28E66CDF-DF3E-4AFB-A842-A346A1428247}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsedCarBL", "UsedCarBL\UsedCarBL.csproj", "{29758F2D-5BF0-4B30-83FC-401A589994F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,10 +41,10 @@ Global
 		{2A840E04-3D7E-493A-96A0-E870C89BDA63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A840E04-3D7E-493A-96A0-E870C89BDA63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A840E04-3D7E-493A-96A0-E870C89BDA63}.Release|Any CPU.Build.0 = Release|Any CPU
-		{55B3155A-6586-4D23-A1E2-C9C0EB2DCD7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{55B3155A-6586-4D23-A1E2-C9C0EB2DCD7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{55B3155A-6586-4D23-A1E2-C9C0EB2DCD7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{55B3155A-6586-4D23-A1E2-C9C0EB2DCD7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29758F2D-5BF0-4B30-83FC-401A589994F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29758F2D-5BF0-4B30-83FC-401A589994F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29758F2D-5BF0-4B30-83FC-401A589994F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29758F2D-5BF0-4B30-83FC-401A589994F6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{02D83095-A970-4049-B476-C23BFCB2CFB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{02D83095-A970-4049-B476-C23BFCB2CFB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02D83095-A970-4049-B476-C23BFCB2CFB7}.Release|Any CPU.ActiveCfg = Release|Any CPU

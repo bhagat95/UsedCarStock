@@ -9,6 +9,7 @@ using MySql.Data.MySqlClient;
 using System.Configuration;
 using Dapper;
 using RabbitMQ.Client;
+using UsedCarBL;
 
 namespace UsedCarDAL
 {
@@ -26,15 +27,43 @@ namespace UsedCarDAL
 
         public int DeleteCar(int Id)
         {
+
+namespace UsedCarDAL
+{
+    public class UsedCarRepository
+    {
+
+        static IDbConnection connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"]
+    .ConnectionString);
+
+        /// <summary>
+        /// TODO: manage exceptions in each method
+        /// </summary>
+        /// <param name="usedCarModel"></param>
+        /// <returns></returns>
+
+        public int DeleteCar(int Id)
+        {
+
             var Param = new DynamicParameters();
             Param.Add("Id", Id);
-            using (var con = connection)
+            try
             {
-                IEnumerable<int> Result = con.Query<int>("DeleteStock_AS", Param,
-                    commandType: CommandType.StoredProcedure);
-                return Result.ElementAt(0);
+                using (var con = connection)
+                {
+                    int Result = con.Execute("DeleteStock_AS", Param,
+                        commandType: CommandType.StoredProcedure);
+                    MemCacheManager memCacheManager = new MemCacheManager();
+                    bool isDeleted = memCacheManager.DeleteFromCache(Convert.ToString(Id));
+                    return Result;
+                }
             }
-            
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
 
         public IEnumerable<UsedCarModel> GetAllCars(int PageId, int Offset)
@@ -42,13 +71,44 @@ namespace UsedCarDAL
             var Param = new DynamicParameters();
             Param.Add("PageId", PageId);
             Param.Add("Offset", Offset);
-            using(var con = connection)
+            using (var con = connection)
             {
-                IEnumerable<UsedCarModel> Result = null; //elastic search
-                //con.Query<UsedCarModel> ("GetAllStock_AS", Param, commandType: CommandType.StoredProcedure);
+                IEnumerable<UsedCarModel> Result = con.Query<UsedCarModel>("GetAllStock_AS", Param,
+                    commandType: CommandType.StoredProcedure);
                 return Result;
             }
-            
+
+        }
+
+        public UsedCarModel GetSingleCar(int id)
+        {
+            var Param = new DynamicParameters();
+            Param.Add("Id", id);
+            using (var con = connection)
+            {
+                IEnumerable<UsedCarModel> Result = con.Query<UsedCarModel>("GetSingleStock_AS", Param,
+                       commandType: CommandType.StoredProcedure);
+                if (((System.Collections.Generic.List<UsedCarEntities.UsedCarModel>)Result).Count == 0)
+                {
+                    return null;   
+                }  
+                return Result.ElementAt(0);
+            }
+        }
+
+        public UsedCarModel GetSingleCarMemCache(int id)
+        {
+            try
+            {
+                MemCacheManager mc = new MemCacheManager();
+                return mc.GetFromCache<UsedCarModel>(Convert.ToString(id), new TimeSpan(0, 30, 0), () => GetSingleCar(id));
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            //return this;
         }
 
 
@@ -64,19 +124,19 @@ namespace UsedCarDAL
             param.Add("CityId", usedCarModel.CityId);
             param.Add("ColorId", usedCarModel.ColorId);
             param.Add("FuelEconomy", usedCarModel.FuelEconomy);
-            param.Add("MakeId",usedCarModel.MakeId);
-            param.Add("ModelId",usedCarModel.ModelId);
+            param.Add("MakeId", usedCarModel.MakeId);
+            param.Add("ModelId", usedCarModel.ModelId);
             param.Add("VersionId", usedCarModel.VersionId);
             param.Add("ImgUri", usedCarModel.ImgUri);
             //param.Add("IsAvailable", usedCarModel.IsAvailable);
 
-            IEnumerable<int> id ;
+            IEnumerable<int> id;
             using (var con = connection)
             {
                 //int rowsInserted = con.Execute("AddStock_AS", param, commandType:CommandType.StoredProcedure);
 
                 id = con.Query<int>("AddStock_AS", param, commandType: CommandType.StoredProcedure);
-                
+
             }
 
             AddIdRabbitMQ(id.ElementAt(0));
@@ -113,7 +173,7 @@ namespace UsedCarDAL
                 response = con.Query<int>("EditStock_AS", param, commandType: CommandType.StoredProcedure);
 
             }
-            return 0; //response.ElementAt(0)
+            return response.ElementAt(0);
         }
 
 
