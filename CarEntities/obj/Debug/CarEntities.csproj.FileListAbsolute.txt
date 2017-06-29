@@ -1,8 +1,0 @@
-C:\carwale Training Project\CarEntities\bin\Debug\CarEntities.dll
-C:\carwale Training Project\CarEntities\bin\Debug\CarEntities.pdb
-C:\carwale Training Project\CarEntities\obj\Debug\CarEntities.csprojResolveAssemblyReference.cache
-C:\carwale Training Project\CarEntities\obj\Debug\CarEntities.dll
-C:\carwale Training Project\CarEntities\obj\Debug\CarEntities.pdb
-C:\carwale Training Project\CarEntities\bin\Debug\Elasticsearch.Net.dll
-C:\carwale Training Project\CarEntities\bin\Debug\Nest.dll
-C:\carwale Training Project\CarEntities\bin\Debug\Newtonsoft.Json.dll
