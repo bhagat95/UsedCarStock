@@ -28,23 +28,6 @@ namespace UsedCarDAL
         public int DeleteCar(int Id)
         {
 
-namespace UsedCarDAL
-{
-    public class UsedCarRepository
-    {
-
-        static IDbConnection connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"]
-    .ConnectionString);
-
-        /// <summary>
-        /// TODO: manage exceptions in each method
-        /// </summary>
-        /// <param name="usedCarModel"></param>
-        /// <returns></returns>
-
-        public int DeleteCar(int Id)
-        {
-
             var Param = new DynamicParameters();
             Param.Add("Id", Id);
             try

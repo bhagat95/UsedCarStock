@@ -1,0 +1,41 @@
+﻿@model UsedCarEntities.UsedCarModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Used Car</title>
+</head>
+<body>
+    <div>
+        <center>
+            @if (Model != null)
+            {
+                <h2>@Model.Make @Model.Model @Model.Version</h2>
+                <br />
+                <img src="/Content/images/@Model.ImgUri" alt="car image" width="500" height="200" />
+                <br />
+                <p><b>Price:</b> @Model.Price</p>
+                <p><b>Year:</b> @Model.Year</p>
+                <p><b>Kilometer:</b> @Model.Kilometer</p>
+                <p><b>Fuel Type:</b> @Model.FuelType</p>
+                <p><b>Car Available At:</b> @Model.City</p>
+                <p><b>Color:</b> @Model.Color</p>
+                <p><b>Fuel Economy:</b> @Model.FuelEconomy</p>
+
+            }
+            else
+            {
+                <p>error 404</p>
+            }
+
+
+
+        </center>
+    </div>
+</body>
+</html>

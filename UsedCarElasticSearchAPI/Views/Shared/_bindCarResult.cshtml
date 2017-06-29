@@ -1,17 +1,45 @@
-﻿@model IEnumerable<CarEntities.CarDetail>
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<UsedCarEntities.UsedCarModel>
 @{
     Layout = null;
 }
-<ul style="list-style:none">
-    @foreach (var obj in Model)
+<table border="0" style="padding:10px;">
+@if (Model.Count() > 0)
+{
+    foreach (var obj in Model)
     {
-        <li>
-            <table border="1">
-                <tr><td rowspan="3"><img src="/Content/images/@obj.ImageUri" width="100" height="100" /></td><td colspan="3"> @obj.Make @obj.Model @obj.Version</td></tr>
-                <tr><td>@obj.Price</td><td colspan="2">@obj.City</td></tr>
-                <tr><td>@obj.Kilometer</td><td>@obj.FuelType</td><td>@obj.Year</td></tr>
-            </table>
-        </li>
+
+
+        <tr><td rowspan="3"><a href="./CarProfile/@obj.Id"><img src="/Content/images/@obj.ImgUri" width="200" height="120" /></a></td><td colspan="3"><a href="./CarProfile/@obj.Id"> @obj.Make @obj.Model @obj.Version</a></td></tr>
+        <tr><td>&#8377 @obj.Price</td><td colspan="2">@obj.City</td></tr>
+        <tr><td>@obj.Kilometer Km</td><td>@obj.FuelType</td><td>@obj.Year</td></tr>
+
+
     }
-</ul>
+}
+else
+{
+    <tr><td><h3>Sorry, no cars found matching your criteria.</h3></td></tr>
+}
+    
+</table>
+@Html.PagedListPager(Model, page => Url.Action("All", new { page}))
+<script>
+    $(document).ready(function () { 
+    $('.pagination').each(function () {
+        $(this).children().css("display", "none");;
+    });
+    $('.PagedList-skipToPrevious').each(function () {
+        $(this).css("display", "block");
+        $(this).children().html("<button>prev</button>");
+    });
+    $('.PagedList-skipToNext').each(function () {
+        $(this).css("display", "block");
+        $(this).children().html("<button>next</button>");
+    });
+    });
+</script>
+            
 
