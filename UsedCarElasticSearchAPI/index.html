@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Student Record</title>
+</head>
+<body>
+    <div>
+        <h2>Student</h2>
+        <table id="usedCars" cellpadding="2" cellspacing="2" border="1" width="400px">
+            <tr>
+                <td style="background-color: gray; color:white">ImageUri</td>
+                <td style="background-color: gray; color: white">Id</td>
+                <td style="background-color: gray; color: white">Make</td>
+                <td style="background-color: gray; color: white">Model</td>
+                <td style="background-color: gray; color:white">Version</td>
+                <td style="background-color: gray; color:white">Price</td>
+                <td style="background-color: gray; color: white">City</td>
+                <td style="background-color: gray; color: white">Kilometer</td>
+                <td style="background-color: gray; color: white">FuelType</td>
+                <td style="background-color: gray; color:white">Year</td>
+                
+            </tr>
+        </table>
+    </div>
+
+    <div>
+        <h2>Search by ID</h2>
+
+        <input type="text" size="5" id="stuId" />
+        <input type="button" value="Search" onclick="find();" />
+
+        <p id="st"></p>
+    </div>
+    <script src="Scripts/jquery-2.1.1.js"></script>
+    <script type="text/javascript">
+
+
+        var uri = 'UsedCars/GetAllCars';
+        $(document).ready(function () {
+            $.getJSON(uri)
+            .done(function (data) {
+                $.each(data, function (key, item) {
+                    $('#usedCars').append("<tr><td>" + item.ImageUri + "</td>" +
+                        "<td>" + item.Id + "</td>" +
+                        "<td>" + item.Make + "</td>" +
+                        "<td>" + item.Model + "</td>" +
+                        "<td>" + item.Version + "</td>" +
+                        "<td>" + item.Price + "</td>" +
+                        "<td>" + item.City + "</td>" +
+                        "<td>" + item.Kilometer + "</td>" +
+                        "<td>" + item.FuelType + "</td>" +
+                        "<td>" + item.Year + "</td></tr>");
+                });
+            });
+        });
+
+        function formatItem(item) {
+            return item.Name + '-' + item.PercentageMarks;
+        }
+        function find() {
+            var id = $('#stuId').val();
+            $.getJSON(uri + '/' + id)
+            .done(function (data) {
+                $('#st').text(formatItem(data));
+            })
+            .fail(function (jqXHR, textStatus, err) {
+                $('#usedCars').text('error' + err);
+            })
+        }
+    </script>
+</body>
+</html> 
