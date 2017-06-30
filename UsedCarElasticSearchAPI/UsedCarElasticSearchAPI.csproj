@@ -40,14 +40,31 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Dapper">
-      <HintPath>..\..\..\..\..\Downloads\Dapper.dll</HintPath>
+      <HintPath>..\..\Users\rahul.kushwaha\Downloads\Libs\Dapper.dll</HintPath>
     </Reference>
+    <Reference Include="Elasticsearch.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\carwale\elasticsearch\Elasticsearch.Net.dll</HintPath>
     <Reference Include="Enyim.Caching">
       <HintPath>..\..\..\..\..\Downloads\Enyim.Caching.dll</HintPath>
     </Reference>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MySql.Data">
       <HintPath>..\..\..\..\..\Downloads\Dapper\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Nest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\carwale\elasticsearch\Nest.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -225,6 +242,7 @@
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -283,6 +301,7 @@
     <Content Include="Views\UsedCars\SearchResult.cshtml" />
     <Content Include="Views\UsedCars\sample.cshtml" />
     <Content Include="Views\Shared\_bindCarResult.cshtml" />
+    <Content Include="Views\UsedCars\ProfileView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -299,13 +318,17 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CarEntities\CarEntities.csproj">
-      <Project>{28e66cdf-df3e-4afb-a842-a346a1428247}</Project>
-      <Name>CarEntities</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ElasticSearchDAL\ElasticSearchDAL.csproj">
       <Project>{48f02d62-01e3-4b6c-94cd-499c9e492abd}</Project>
       <Name>ElasticSearchDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UsedCarEntities\UsedCarEntities.csproj">
+      <Project>{d65f45b2-1701-46fd-931f-4f1cc5f70e94}</Project>
+      <Name>UsedCarEntities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UsedCarRepository\UsedCarDAL.csproj">
+      <Project>{2a840e04-3d7e-493a-96a0-e870c89bda63}</Project>
+      <Name>UsedCarDAL</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

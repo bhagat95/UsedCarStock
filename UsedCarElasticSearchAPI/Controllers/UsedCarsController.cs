@@ -7,33 +7,50 @@ using System.Web.Http.Controllers;
 using System.Web.Mvc;
 using UsedCarElasticSearchAPI.Models;
 using ElasticSearchDAL;
-using CarEntities;
-
+using UsedCarEntities;
+using PagedList;
+using PagedList.Mvc;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
+using Dapper;
+using UsedCarDAL;
 namespace UsedCarElasticSearchAPI.Controllers
 {
     public class UsedCarsController : Controller
     {
         
          //GET: UsedCars
-        public ActionResult All()
+        public ActionResult All(int? page)
         {
             
              
             ElasticSearchRepository elasticRepo = new ElasticSearchRepository();
 
-            IEnumerable<CarDetail> cars = elasticRepo.Search();
+            IEnumerable<UsedCarModel> cars = elasticRepo.Search(null,0,0);
            
-            return View("~/Views/UsedCars/SearchResult.cshtml", cars);
+            return View("~/Views/UsedCars/SearchResult.cshtml", cars.ToList().ToPagedList(page ?? 1,3));
         }
        
-        public ActionResult Filter()
+        public ActionResult Filter(int? page)
         {
             string City = Request.QueryString["city"];
             int MinBudget = Convert.ToInt32(Request.QueryString["minbudget"]);
             int MaxBudget = Convert.ToInt32(Request.QueryString["maxbudget"]);
             ElasticSearchRepository elasticRepo = new ElasticSearchRepository();
-            IEnumerable<CarDetail> cars = elasticRepo.Search(City, MinBudget, MaxBudget);
-            return View("~/Views/Shared/_bindCarResult.cshtml",cars);
+            IEnumerable<UsedCarModel> cars = elasticRepo.Search(City, MinBudget, MaxBudget);
+            return View("~/Views/Shared/_bindCarResult.cshtml", cars.ToList().ToPagedList(page ?? 1, 3));
+        }
+
+        public ActionResult CarProfile(int id)
+        {
+            
+                UsedCarModel usedCarModel = new UsedCarModel();
+                UsedCarRepository usedCarRepositoty = new UsedCarRepository();
+                usedCarModel = usedCarRepositoty.GetSingleCarMemCache(id);
+                return View("~/Views/UsedCars/ProfileView.cshtml", usedCarModel);
+           
         }
         
         

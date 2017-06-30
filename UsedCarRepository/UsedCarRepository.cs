@@ -25,10 +25,6 @@ namespace UsedCarDAL
         /// <param name="usedCarModel"></param>
         /// <returns></returns>
 
-
-        public int DeleteCar(int Id)
-        {
-
             var Param = new DynamicParameters();
             Param.Add("Id", Id);
             try
@@ -155,6 +151,9 @@ namespace UsedCarDAL
                 //int rowsInserted = con.Execute("AddStock_AS", param, commandType:CommandType.StoredProcedure);
 
                 response = con.Query<int>("EditStock_AS", param, commandType: CommandType.StoredProcedure);
+                MemCacheManager memCacheManager = new MemCacheManager();
+                bool isDeleted = memCacheManager.DeleteFromCache(Convert.ToString(id));
+                
 
             }
             return response.ElementAt(0);

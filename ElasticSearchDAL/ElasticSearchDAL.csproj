@@ -39,6 +39,9 @@
     <Reference Include="MySql.Data">
       <HintPath>..\..\..\..\..\Downloads\Dapper\MySql.Data.dll</HintPath>
     </Reference>
+    <Reference Include="MySql.Data">
+      <HintPath>..\..\Users\rahul.kushwaha\Downloads\Libs\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="Nest">
       <HintPath>..\..\..\..\..\Downloads\Nest.dll</HintPath>
     </Reference>
@@ -63,9 +66,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CarEntities\CarEntities.csproj">
-      <Project>{28e66cdf-df3e-4afb-a842-a346a1428247}</Project>
-      <Name>CarEntities</Name>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UsedCarEntities\UsedCarEntities.csproj">
+      <Project>{d65f45b2-1701-46fd-931f-4f1cc5f70e94}</Project>
+      <Name>UsedCarEntities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

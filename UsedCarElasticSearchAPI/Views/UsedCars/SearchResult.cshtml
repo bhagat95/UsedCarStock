@@ -1,7 +1,11 @@
-﻿@model IEnumerable<CarEntities.CarDetail>
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<UsedCarEntities.UsedCarModel>
             
     @{
-        ViewBag.Title = "SearchResult";
+        
+        Layout = null;
     }
 
     <!doctype HTML>
@@ -9,30 +13,91 @@
     <html lang="en">
     <head>
         <title>Used Cars</title>
+        <style>
+            td{
+                padding:5px;
+                margin:5px;
+            }
+            .pagination{
+                display:inline-block;
+            }
+            .pagination li{
+               list-style:none;
+               margin:5px;
+               display:inline-block;
+            }
+        </style>
+        <script src="~/Scripts/jquery-3.1.1.js"></script>
     </head>
     <body>
-        <div>
-            <span>Fileter by location:</span>
-            <select id="location">
-                <option value="" selected="selected">city</option>
-                <option value="Mumbai">mumbai</option>
-                <option value="Delhi">delhi</option>
-                <option value="Nagpur">nagpur</option>
-            </select>
+        <center>
+            <div>
+                <h2>Used Cars Powered by <i>Flatmates</i></h2>
+                <span>Fileter by location:</span>
+                <select id="location" >
+                    <option value="" selected="selected">city</option>
+                    <option value="Mumbai">mumbai</option>
+                    <option value="Delhi">delhi</option>
+                    <option value="Nagpur">nagpur</option>
+                </select>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span>Filter by budget</span>
 
-            <span>Filter by budget</span>
-            
-            <input id="minBudget" placeholder="min value" />
-            <input id="maxBudget" placeholder="max value" />
-            
-            <input id="gobtn" type="button" value="Go"/>
-        </div>
-        <div id="listing-section">
-            @{Html.RenderPartial("~/Views/Shared/_bindCarResult.cshtml", Model);}
-        </div>
-        <script src="~/Scripts/jquery-3.1.1.js"></script>
+                <input id="minBudget" class="numbersOnly" placeholder="min value" size="10" />
+                <input id="maxBudget" class="numbersOnly" placeholder="max value" size="10" />
+
+                <input id="gobtn" type="button" value="Go" />
+            </div>
+
+            <div id="listing-section">
+                
+                    @{Html.RenderPartial("~/Views/Shared/_bindCarResult.cshtml", Model);}
+                @Html.PagedListPager(Model, page => Url.Action("All", new { page }))
+                <script>
+                    $(document).ready(function () {
+                        $('.pagination').each(function () {
+                            $(this).children().css("display", "none");;
+                        });
+                        $('.PagedList-skipToPrevious').each(function () {
+                            $(this).css("display", "block");
+                            $(this).children().html("<button>prev</button>");
+                        });
+                        $('.PagedList-skipToNext').each(function () {
+                            $(this).css("display", "block");
+                            $(this).children().html("<button>next</button>");
+                        });
+                    });
+                </script>
+                
+</div>
+        </center>
+        
         <script>
-            $(document).ready(function () {
+            $(document).ready(function () { 
+                $('.numbersOnly').keyup(function () {
+                    this.value = this.value.replace(/[^0-9\.]/g, '');
+                });
+            $('#gobtn').click(function () {
+               
+                    var minBudget = $('#minBudget').val();
+                    var maxBudget = $('#maxBudget').val();
+                    if (minBudget < 10000 || !minBudget)
+                    {
+                        minBudget = 10000;
+                    }
+                    if (maxBudget >= 50000000 || !maxBudget)
+                    {
+                        maxBudget = 50000000;
+                    }
+
+                    var cityName = $('#location').val();
+                    $("#listing-section").load("/UsedCars/Filter/?city=" + cityName + "&minbudget=" + minBudget + "&maxbudget=" + maxBudget, function (response, status) {
+                        if (status == "error") {
+                            console.log("sdgjsgk");
+                        }
+                    });
+                });
+
                 $('#location').change(function () {
                     var cityName = $(this).val();
                     $("#listing-section").load("/UsedCars/Filter/?city=" +cityName, function (response, status) {
@@ -41,16 +106,12 @@
                         }
                     });
                 });
-                $('#gobtn').click(function () {
-                    var minBudget = $('#minBudget').val();
-                    var maxBudget = $('#maxBudget').val();
-                    var cityName = $('#location').val();
-                    $("#listing-section").load("/UsedCars/Filter/?city=" +cityName+"&minbudget="+minBudget+"&maxbudget="+maxBudget, function (response, status) {
-                        if (status == "error") {
-                            console.log("sdgjsgk");
-                        }
-                    });
-                });
+               
+                
+               
+               /* $("#minBudget").numeric();
+                $("#maxBudget").numeric();*/
+                
             });
         </script>
     </body>

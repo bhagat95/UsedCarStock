@@ -8,3 +8,10 @@ C:\Users\ashutosh.sharma\Documents\Visual Studio 2013\Projects\UsedCarStock\Used
 C:\Users\ashutosh.sharma\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarBL\obj\Debug\UsedCarBL.csprojResolveAssemblyReference.cache
 C:\Users\ashutosh.sharma\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarBL\obj\Debug\UsedCarBL.dll
 C:\Users\ashutosh.sharma\Documents\Visual Studio 2013\Projects\UsedCarStock\UsedCarBL\obj\Debug\UsedCarBL.pdb
+C:\carwale Training Project\UsedCarBL\bin\Debug\UsedCarBL.dll
+C:\carwale Training Project\UsedCarBL\bin\Debug\UsedCarBL.pdb
+C:\carwale Training Project\UsedCarBL\bin\Debug\UsedCarEntities.dll
+C:\carwale Training Project\UsedCarBL\bin\Debug\UsedCarEntities.pdb
+C:\carwale Training Project\UsedCarBL\obj\Debug\UsedCarBL.csprojResolveAssemblyReference.cache
+C:\carwale Training Project\UsedCarBL\obj\Debug\UsedCarBL.dll
+C:\carwale Training Project\UsedCarBL\obj\Debug\UsedCarBL.pdb
