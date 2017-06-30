@@ -30,14 +30,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper">
+      <HintPath>..\..\..\..\..\Downloads\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="Elasticsearch.Net">
-      <HintPath>..\..\carwale\elasticsearch\Elasticsearch.Net.dll</HintPath>
+      <HintPath>..\..\..\..\..\Downloads\Elasticsearch.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data">
+      <HintPath>..\..\..\..\..\Downloads\Dapper\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="Nest">
-      <HintPath>..\..\carwale\elasticsearch\Nest.dll</HintPath>
+      <HintPath>..\..\..\..\..\Downloads\Nest.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\carwale\elasticsearch\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\..\Downloads\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />

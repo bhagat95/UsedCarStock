@@ -4,3 +4,8 @@
 *.log
 *.user
 */debug
+*.dll
+!Nest.dll
+!Dapper.dll
+
+

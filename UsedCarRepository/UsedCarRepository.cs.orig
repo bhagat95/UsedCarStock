@@ -3,28 +3,30 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
-using System.Web;
 using System.Threading.Tasks;
 using UsedCarEntities;
 using MySql.Data.MySqlClient;
 using System.Configuration;
 using Dapper;
+<<<<<<< HEAD
 using RabbitMQ.Client;
+=======
 using UsedCarBL;
+>>>>>>> f_memcache
 
 namespace UsedCarDAL
 {
     public class UsedCarRepository
     {
 
-        static IDbConnection connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+        static IDbConnection connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"]
+    .ConnectionString);
 
         /// <summary>
         /// TODO: manage exceptions in each method
         /// </summary>
         /// <param name="usedCarModel"></param>
         /// <returns></returns>
-
 
         public int DeleteCar(int Id)
         {
@@ -57,8 +59,13 @@ namespace UsedCarDAL
             Param.Add("Offset", Offset);
             using (var con = connection)
             {
+<<<<<<< HEAD
+                IEnumerable<UsedCarModel> Result = null; //elastic search
+                //con.Query<UsedCarModel> ("GetAllStock_AS", Param, commandType: CommandType.StoredProcedure);
+=======
                 IEnumerable<UsedCarModel> Result = con.Query<UsedCarModel>("GetAllStock_AS", Param,
                     commandType: CommandType.StoredProcedure);
+>>>>>>> f_memcache
                 return Result;
             }
 
@@ -74,8 +81,8 @@ namespace UsedCarDAL
                        commandType: CommandType.StoredProcedure);
                 if (((System.Collections.Generic.List<UsedCarEntities.UsedCarModel>)Result).Count == 0)
                 {
-                    return null;
-                }
+                    return null;   
+                }  
                 return Result.ElementAt(0);
             }
         }
@@ -87,7 +94,7 @@ namespace UsedCarDAL
                 MemCacheManager mc = new MemCacheManager();
                 return mc.GetFromCache<UsedCarModel>(Convert.ToString(id), new TimeSpan(0, 30, 0), () => GetSingleCar(id));
             }
-            catch (Exception err)
+            catch (Exception)
             {
 
                 throw;
@@ -100,7 +107,7 @@ namespace UsedCarDAL
         {
 
             var param = new DynamicParameters();
-            
+
             param.Add("Price", usedCarModel.Price);
             param.Add("Year", usedCarModel.Year);
             param.Add("Kilometer", usedCarModel.Kilometer);
@@ -111,7 +118,6 @@ namespace UsedCarDAL
             param.Add("MakeId", usedCarModel.MakeId);
             param.Add("ModelId", usedCarModel.ModelId);
             param.Add("VersionId", usedCarModel.VersionId);
-            usedCarModel.ImgUri = System.Web.Configuration.WebConfigurationManager.AppSettings["ImagePath"].ToString()+"l_car_";
             param.Add("ImgUri", usedCarModel.ImgUri);
             //param.Add("IsAvailable", usedCarModel.IsAvailable);
 
@@ -128,6 +134,7 @@ namespace UsedCarDAL
 
             return id.ElementAt(0);
         }
+
 
         public int UpdateCarDetails(int id, UsedCarModel usedCarModel)
         {
@@ -157,7 +164,7 @@ namespace UsedCarDAL
                 response = con.Query<int>("EditStock_AS", param, commandType: CommandType.StoredProcedure);
 
             }
-            return response.ElementAt(0);
+            return 0; //response.ElementAt(0)
         }
 
 
@@ -173,7 +180,7 @@ namespace UsedCarDAL
 
                 channel.QueueDeclare(Queue, false, false, false, null);
 
-                byte[] message = Encoding.UTF8.GetBytes(id + "");
+                byte[] message = Encoding.UTF8.GetBytes(id+"");
 
                 channel.BasicPublish("", Queue, null, message);
                 //Console.WriteLine("Press any key to exit");
