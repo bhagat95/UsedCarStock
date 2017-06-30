@@ -45,10 +45,14 @@
     <Reference Include="Elasticsearch.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\carwale\elasticsearch\Elasticsearch.Net.dll</HintPath>
+    <Reference Include="Enyim.Caching">
+      <HintPath>..\..\..\..\..\Downloads\Enyim.Caching.dll</HintPath>
+    </Reference>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="MySql.Data">
-      <HintPath>..\..\Users\rahul.kushwaha\Downloads\Libs\MySql.Data.dll</HintPath>
+      <HintPath>..\..\..\..\..\Downloads\Dapper\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="Nest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

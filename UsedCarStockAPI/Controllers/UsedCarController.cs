@@ -11,6 +11,8 @@ using System.Data;
 using System.Configuration;
 using UsedCarEntities;
 using UsedCarDAL;
+using System.Drawing;
+using System.Web;
 
 namespace UsedCarStockAPI.Controllers
 {
@@ -24,7 +26,7 @@ namespace UsedCarStockAPI.Controllers
 
         //    return usedCarModel.Year;
         //}
-        UsedCarModel usedCarModel;
+        UsedCarModel usedCarModel = null;
 
         // GET api/values
         public IEnumerable<string> Get()
@@ -41,6 +43,8 @@ namespace UsedCarStockAPI.Controllers
             return usedCarRepositoty.GetSingleCarMemCache(id);
             //return usedCarModel;
         }
+
+       
 
 
 

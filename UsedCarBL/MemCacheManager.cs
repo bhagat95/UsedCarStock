@@ -38,6 +38,7 @@ namespace UsedCarBL
 
         public T GetFromCache<T>(string key, TimeSpan cacheDuration, Func<T> dbCallback)
         {
+            key = key + "_AS";
             T t = default(T);
             try
             {
@@ -45,13 +46,13 @@ namespace UsedCarBL
                 if (EqualityComparer<T>.Default.Equals(t, default(T)))
                 {
                     bool a;
-                    if (a = mc.Store(StoreMode.Add, key + "_lock", "lock", DateTime.Now.AddSeconds(60)))
+                    if (a = mc.Store(StoreMode.Add, key + "_AS_lock", "lock", DateTime.Now.AddSeconds(60)))
                     {
                         t = dbCallback();
 
                         mc.Store(StoreMode.Add, key, t, DateTime.Now.Add(cacheDuration));
 
-                        mc.Remove(key + "_lock");
+                        mc.Remove(key + "_AS_lock");
                     }
                     else
                     {

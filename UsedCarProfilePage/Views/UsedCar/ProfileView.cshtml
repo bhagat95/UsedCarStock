@@ -1,4 +1,4 @@
-﻿@model UsedCarProfilePage.Models.UsedCarModel
+﻿@model UsedCarEntities.UsedCarModel
 @{
     Layout = null;
 }
@@ -17,7 +17,7 @@
             {
                 <h2>@Model.Make @Model.Model @Model.Version</h2>
                 <br />
-                <img src="@Model.ImageUri" alt="car image" width="500" height="200" />
+                <img src="@Model.ImgUri" alt="car image" width="640" height="348" />
                 <br />
                 <p><b>Price:</b> @Model.Price</p>
                 <p><b>Year:</b> @Model.Year</p>
