@@ -50,6 +50,10 @@
     <Reference Include="MySql.Data">
       <HintPath>..\..\..\..\..\Downloads\Dapper\MySql.Data.dll</HintPath>
     </Reference>
+    <Reference Include="RabbitMQ.Client, Version=3.6.6.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Desktop\Assignment\Training project\memcachedandrabbitmqsampleproject\RabbitMQ.Client.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -291,6 +295,10 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ElasticSearchDAL\ElasticSearchDAL.csproj">
+      <Project>{48f02d62-01e3-4b6c-94cd-499c9e492abd}</Project>
+      <Name>ElasticSearchDAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UsedCarEntities\UsedCarEntities.csproj">
       <Project>{d65f45b2-1701-46fd-931f-4f1cc5f70e94}</Project>
       <Name>UsedCarEntities</Name>

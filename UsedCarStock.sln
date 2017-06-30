@@ -9,7 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsedCarStockAPI", "UsedCarS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsedCarEntities", "UsedCarEntities\UsedCarEntities.csproj", "{D65F45B2-1701-46FD-931F-4F1CC5F70E94}"
 EndProject
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsedCarDAL", "UsedCarRepository\UsedCarDAL.csproj", "{2A840E04-3D7E-493A-96A0-E870C89BDA63}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsedCarElasticSearchAPI", "UsedCarElasticSearchAPI\UsedCarElasticSearchAPI.csproj", "{02D83095-A970-4049-B476-C23BFCB2CFB7}"
