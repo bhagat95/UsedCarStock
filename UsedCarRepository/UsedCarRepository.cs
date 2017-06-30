@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Web;
 using System.Threading.Tasks;
 using UsedCarEntities;
 using MySql.Data.MySqlClient;
@@ -99,7 +100,7 @@ namespace UsedCarDAL
         {
 
             var param = new DynamicParameters();
-
+            
             param.Add("Price", usedCarModel.Price);
             param.Add("Year", usedCarModel.Year);
             param.Add("Kilometer", usedCarModel.Kilometer);
@@ -110,6 +111,7 @@ namespace UsedCarDAL
             param.Add("MakeId", usedCarModel.MakeId);
             param.Add("ModelId", usedCarModel.ModelId);
             param.Add("VersionId", usedCarModel.VersionId);
+            usedCarModel.ImgUri = System.Web.Configuration.WebConfigurationManager.AppSettings["ImagePath"].ToString()+"l_car_";
             param.Add("ImgUri", usedCarModel.ImgUri);
             //param.Add("IsAvailable", usedCarModel.IsAvailable);
 
@@ -126,7 +128,6 @@ namespace UsedCarDAL
 
             return id.ElementAt(0);
         }
-
 
         public int UpdateCarDetails(int id, UsedCarModel usedCarModel)
         {

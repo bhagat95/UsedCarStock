@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsedCarBL", "UsedCarBL\Used
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarEntities", "CarEntities\CarEntities.csproj", "{28E66CDF-DF3E-4AFB-A842-A346A1428247}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cars", "cars", "{95FFE2C1-9685-4A4C-B94C-D4028C5B8B73}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

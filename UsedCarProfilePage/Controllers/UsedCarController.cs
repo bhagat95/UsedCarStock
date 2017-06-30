@@ -4,14 +4,15 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using UsedCarProfilePage.Models;
-//using System.Web;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
 using UsedCarDAL;
 using UsedCarEntities;
-
+using UsedCarBL;
+using System.Drawing.Imaging;
+using System.IO;
 
 
 namespace UsedCarProfilePage.Controllers
@@ -29,6 +30,12 @@ namespace UsedCarProfilePage.Controllers
                 UsedCarModel usedCarModel = new UsedCarModel();
                 UsedCarRepository usedCarRepositoty = new UsedCarRepository();
                 usedCarModel = usedCarRepositoty.GetSingleCarMemCache(id);
+                
+
+                ImageProcessorRmq imageProcessorES = new ImageProcessorRmq();
+                imageProcessorES.SaveImage("https://imgd.aeplcdn.com/891x501/cw/ucp/stockApiImg/2697XMS_1085006_1_8031299.jpg?q=85",
+                    ImageFormat.Jpeg, id);
+               // usedCarModel.ImgUri = "/Content/l_car_"+Convert.ToString(id)+".jpeg";
                 return View("~/Views/UsedCar/ProfileView.cshtml", usedCarModel);
             }
             catch (Exception err)
