@@ -10,23 +10,8 @@ using System.Configuration;
 using Dapper;
 using RabbitMQ.Client;
 using UsedCarBL;
+using ElasticSearchDAL;
 
-namespace UsedCarDAL
-{
-    public class UsedCarRepository
-    {
-
-        static IDbConnection connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"]
-    .ConnectionString);
-
-        /// <summary>
-        /// TODO: manage exceptions in each method
-        /// </summary>
-        /// <param name="usedCarModel"></param>
-        /// <returns></returns>
-
-        public int DeleteCar(int Id)
-        {
 
 namespace UsedCarDAL
 {
@@ -55,15 +40,19 @@ namespace UsedCarDAL
                         commandType: CommandType.StoredProcedure);
                     MemCacheManager memCacheManager = new MemCacheManager();
                     bool isDeleted = memCacheManager.DeleteFromCache(Convert.ToString(Id));
+
+                    //Delete from Elastic Search
+                    new ElasticSearchRepository().Delete(Id);
+
                     return Result;
                 }
             }
             catch (Exception)
             {
 
-                throw;
+                //throw;
             }
-
+            return -1;
         }
 
         public IEnumerable<UsedCarModel> GetAllCars(int PageId, int Offset)
@@ -140,12 +129,13 @@ namespace UsedCarDAL
             }
 
             AddIdRabbitMQ(id.ElementAt(0));
+            //new ElasticSearchRepository().GlobalRabbitMQSubscriber();
 
             return id.ElementAt(0);
         }
 
 
-        public int UpdateCarDetails(int id, UsedCarModel usedCarModel)
+        public bool UpdateCarDetails(int id, UsedCarModel usedCarModel)
         {
 
 
@@ -173,10 +163,17 @@ namespace UsedCarDAL
                 response = con.Query<int>("EditStock_AS", param, commandType: CommandType.StoredProcedure);
 
             }
-            return response.ElementAt(0);
+
+            AddIdRabbitMQ(id);
+
+            return true;
         }
 
-
+/// <summary>
+/// Make SIngleton classes and single instances of Connection Factory
+/// </summary>
+/// <param name="id"></param>
+/// <returns></returns>
         public String AddIdRabbitMQ(int id)
         {
             try

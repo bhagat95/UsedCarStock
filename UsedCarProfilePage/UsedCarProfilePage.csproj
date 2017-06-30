@@ -40,11 +40,20 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Dapper">
-      <HintPath>..\..\Users\rahul.kushwaha\Downloads\Libs\Dapper.dll</HintPath>
+      <HintPath>..\..\..\..\..\Desktop\Assignment\Training project\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Elasticsearch.Net">
+      <HintPath>..\..\..\..\..\Desktop\Assignment\Training project\Rahul\elasticmaterial\Elasticsearch.Net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MySql.Data">
-      <HintPath>..\..\Users\rahul.kushwaha\Downloads\Libs\MySql.Data.dll</HintPath>
+      <HintPath>..\..\..\..\..\Desktop\Assignment\Training project\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Nest">
+      <HintPath>..\..\..\..\..\Desktop\Assignment\Training project\Rahul\elasticmaterial\Nest.dll</HintPath>
+    </Reference>
+    <Reference Include="RabbitMQ.Client">
+      <HintPath>..\..\..\..\..\Desktop\Assignment\Training project\memcachedandrabbitmqsampleproject\RabbitMQ.Client.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

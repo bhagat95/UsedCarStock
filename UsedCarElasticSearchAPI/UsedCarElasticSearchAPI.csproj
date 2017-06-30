@@ -290,10 +290,6 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CarEntities\CarEntities.csproj">
-      <Project>{28e66cdf-df3e-4afb-a842-a346a1428247}</Project>
-      <Name>CarEntities</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ElasticSearchDAL\ElasticSearchDAL.csproj">
       <Project>{48f02d62-01e3-4b6c-94cd-499c9e492abd}</Project>
       <Name>ElasticSearchDAL</Name>

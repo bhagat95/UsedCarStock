@@ -31,13 +31,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Elasticsearch.Net">
-      <HintPath>..\..\carwale\elasticsearch\Elasticsearch.Net.dll</HintPath>
+      <HintPath>..\..\..\..\..\Desktop\Assignment\Training project\Rahul\elasticmaterial\Elasticsearch.Net.dll</HintPath>
     </Reference>
     <Reference Include="Nest">
-      <HintPath>..\..\carwale\elasticsearch\Nest.dll</HintPath>
+      <HintPath>..\..\..\..\..\Desktop\Assignment\Training project\Rahul\elasticmaterial\Nest.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\carwale\elasticsearch\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RabbitMQ.Client">
+      <HintPath>..\..\..\..\..\Desktop\Assignment\Training project\memcachedandrabbitmqsampleproject\RabbitMQ.Client.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -57,9 +60,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CarEntities\CarEntities.csproj">
-      <Project>{28e66cdf-df3e-4afb-a842-a346a1428247}</Project>
-      <Name>CarEntities</Name>
+    <ProjectReference Include="..\UsedCarBL\UsedCarBL.csproj">
+      <Project>{29758f2d-5bf0-4b30-83fc-401a589994f6}</Project>
+      <Name>UsedCarBL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UsedCarEntities\UsedCarEntities.csproj">
+      <Project>{d65f45b2-1701-46fd-931f-4f1cc5f70e94}</Project>
+      <Name>UsedCarEntities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UsedCarRepository\UsedCarDAL.csproj">
+      <Project>{2a840e04-3d7e-493a-96a0-e870c89bda63}</Project>
+      <Name>UsedCarDAL</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

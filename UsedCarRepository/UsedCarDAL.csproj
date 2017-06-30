@@ -33,6 +33,9 @@
     <Reference Include="Dapper">
       <HintPath>..\..\..\..\..\Desktop\Assignment\Training project\Dapper.dll</HintPath>
     </Reference>
+    <Reference Include="ElasticSearchDAL">
+      <HintPath>..\..\RabbitMQ\RabbitMQ\lib\ElasticSearchDAL.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data">
       <HintPath>..\..\..\..\..\Desktop\Assignment\Training project\MySql.Data.dll</HintPath>
     </Reference>
