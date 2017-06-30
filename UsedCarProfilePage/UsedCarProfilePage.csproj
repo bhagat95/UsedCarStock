@@ -47,9 +47,9 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MySql.Data">
-<<<<<<< HEAD
+
       <HintPath>..\..\..\..\..\Downloads\Dapper\MySql.Data.dll</HintPath>
-=======
+
       <HintPath>..\..\..\..\..\Desktop\Assignment\Training project\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="Nest">
@@ -57,7 +57,7 @@
     </Reference>
     <Reference Include="RabbitMQ.Client">
       <HintPath>..\..\..\..\..\Desktop\Assignment\Training project\memcachedandrabbitmqsampleproject\RabbitMQ.Client.dll</HintPath>
->>>>>>> f_RabbitMQElastic
+
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

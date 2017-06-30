@@ -45,9 +45,9 @@
     <Reference Include="Elasticsearch.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\carwale\elasticsearch\Elasticsearch.Net.dll</HintPath>
+    </Reference>
     <Reference Include="Enyim.Caching">
       <HintPath>..\..\..\..\..\Downloads\Enyim.Caching.dll</HintPath>
-    </Reference>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.CSharp" />
@@ -315,12 +315,16 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
+    <!--<WCFMetadata Include="Service References\" />-->
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ElasticSearchDAL\ElasticSearchDAL.csproj">
       <Project>{48f02d62-01e3-4b6c-94cd-499c9e492abd}</Project>
       <Name>ElasticSearchDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UsedCarBL\UsedCarBL.csproj">
+      <Project>{29758f2d-5bf0-4b30-83fc-401a589994f6}</Project>
+      <Name>UsedCarBL</Name>
     </ProjectReference>
     <ProjectReference Include="..\UsedCarEntities\UsedCarEntities.csproj">
       <Project>{d65f45b2-1701-46fd-931f-4f1cc5f70e94}</Project>

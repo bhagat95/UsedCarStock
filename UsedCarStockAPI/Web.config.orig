@@ -13,8 +13,14 @@
     <add name="DefaultConnection" connectionString="server=172.16.0.26;port=3306;database=training;User Id=training;Password=training"
       providerName="System.Data.SqlClient" />
   </connectionStrings>
+<<<<<<< HEAD
   <appSettings>
-    <add key="ImagePath" value="/Content/Images/"/>
+    <add key="ImagePath" value="/Content/"/>
+  </appSettings>
+=======
+  
+  
+  <appSettings>
     <add key="ElasticIndexName" value="training_project_rk"/>
     <add key="ElasticHostUrl" value="172.16.0.11:9200"/>
     <!--<add key="connectionString" value="server=172.16.0.20\cwdev;uid=cwuser;pwd=cw@007;database=Carwale" />-->
@@ -40,6 +46,7 @@
     <add key ="typeName" value="item"/>
   </appSettings>
 
+>>>>>>> f_RabbitMQElastic
   <system.web>
     <authentication mode="None" />
     <compilation debug="true" targetFramework="4.5" />

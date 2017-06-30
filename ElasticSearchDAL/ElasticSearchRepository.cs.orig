@@ -5,31 +5,45 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+<<<<<<< HEAD
 using UsedCarEntities;
+=======
+using CarEntities;
 using UsedCarEntities;
 using UsedCarDAL;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
+>>>>>>> f_RabbitMQElastic
 namespace ElasticSearchDAL
 {
     public class ElasticSearchRepository
     {
+<<<<<<< HEAD
+        public IEnumerable<UsedCarModel> Search(string City=null, int MinBudget=0, int MaxBudget=int.MaxValue )
+       {
+=======
         public ElasticClient client = ElasticClientInstance.GetInstance();
         string UsedCarElasticIndex = "trainingelasticindex";
         string UsedCarElasticType = "usedcar";
 
-       
-        public IEnumerable<UsedCarModel> Search(string City=null, int MinBudget=0, int MaxBudget=int.MaxValue )
+        public IEnumerable<CarDetail> Search(string City=null, int MinBudget=0, int MaxBudget=int.MaxValue )
         {
+>>>>>>> f_RabbitMQElastic
 
 
             
             if(string.IsNullOrEmpty(City) && MinBudget.Equals(0) && MaxBudget.Equals(0))
             {
+<<<<<<< HEAD
                 var searchResult = client.Search<UsedCarModel>(s =>
+                s.Index("trainingelasticindex")
+                .Type("usedcar")
+=======
+                var searchResult = client.Search<CarDetail>(s =>
                 s.Index(UsedCarElasticIndex)
                 .Type(UsedCarElasticType)
+>>>>>>> f_RabbitMQElastic
                 .MatchAll()
                 
                 );
@@ -61,9 +75,15 @@ namespace ElasticSearchDAL
             //}
             else
             {
+<<<<<<< HEAD
                 var searchResult = client.Search<UsedCarModel>(s =>
+                s.Index("trainingelasticindex")
+                .Type("usedcar")
+=======
+                var searchResult = client.Search<CarDetail>(s =>
                 s.Index(UsedCarElasticIndex)
                 .Type(UsedCarElasticType)
+>>>>>>> f_RabbitMQElastic
                 .Query(q => q
                 .Term(p=>p.City,City.ToLower())&q
                 .Range(r => r.OnField(fi => fi.Price).LowerOrEquals(MaxBudget).GreaterOrEquals(MinBudget)))

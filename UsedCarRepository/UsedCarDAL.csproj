@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Dapper">
-      <HintPath>..\..\..\..\..\Downloads\Dapper\Dapper.dll</HintPath>
+      <HintPath>..\..\..\..\..\Desktop\Assignment\Training project\Dapper.dll</HintPath>
     </Reference>
     <Reference Include="Enyim.Caching, Version=2.12.0.0, Culture=neutral, PublicKeyToken=cec98615db04012e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -41,7 +41,7 @@
       <HintPath>..\..\RabbitMQ\RabbitMQ\lib\ElasticSearchDAL.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data">
-      <HintPath>..\..\..\..\..\Downloads\Dapper\MySql.Data.dll</HintPath>
+      <HintPath>..\..\..\..\..\Desktop\Assignment\Training project\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="RabbitMQ.Client">
       <HintPath>..\..\..\..\..\Desktop\Assignment\Training project\memcachedandrabbitmqsampleproject\RabbitMQ.Client.dll</HintPath>

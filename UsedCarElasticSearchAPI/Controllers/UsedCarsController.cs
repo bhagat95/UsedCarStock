@@ -16,6 +16,8 @@ using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
 using Dapper;
 using UsedCarDAL;
+using UsedCarBL;
+using System.Drawing.Imaging;
 namespace UsedCarElasticSearchAPI.Controllers
 {
     public class UsedCarsController : Controller
@@ -43,14 +45,29 @@ namespace UsedCarElasticSearchAPI.Controllers
             return View("~/Views/Shared/_bindCarResult.cshtml", cars.ToList().ToPagedList(page ?? 1, 3));
         }
 
+    
+
         public ActionResult CarProfile(int id)
         {
-            
+            try
+            {
                 UsedCarModel usedCarModel = new UsedCarModel();
                 UsedCarRepository usedCarRepositoty = new UsedCarRepository();
                 usedCarModel = usedCarRepositoty.GetSingleCarMemCache(id);
+
+
+                ImageProcessorRmq imageProcessorES = new ImageProcessorRmq();
+                imageProcessorES.SaveImage("https://imgd.aeplcdn.com/891x501/cw/ucp/stockApiImg/2697XMS_1085006_1_8031299.jpg?q=85",
+                    ImageFormat.Jpeg, id);
                 return View("~/Views/UsedCars/ProfileView.cshtml", usedCarModel);
-           
+            }
+            catch (Exception err)
+            {
+
+                throw;
+            }
+
+
         }
         
         

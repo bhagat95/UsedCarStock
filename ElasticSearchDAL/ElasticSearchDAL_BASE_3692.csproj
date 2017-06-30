@@ -30,29 +30,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dapper">
-      <HintPath>..\..\..\..\..\Downloads\Dapper.dll</HintPath>
-    </Reference>
     <Reference Include="Elasticsearch.Net">
-      <HintPath>..\..\..\..\..\Desktop\Assignment\Training project\Rahul\elasticmaterial\Elasticsearch.Net.dll</HintPath>
-    </Reference>
-    <Reference Include="MySql.Data">
-      <HintPath>..\..\..\..\..\Downloads\Dapper\MySql.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="MySql.Data">
-      <HintPath>..\..\Users\rahul.kushwaha\Downloads\Libs\MySql.Data.dll</HintPath>
+      <HintPath>..\..\carwale\elasticsearch\Elasticsearch.Net.dll</HintPath>
     </Reference>
     <Reference Include="Nest">
-      <HintPath>..\..\..\..\..\Desktop\Assignment\Training project\Rahul\elasticmaterial\Nest.dll</HintPath>
+      <HintPath>..\..\carwale\elasticsearch\Nest.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\..\Downloads\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\carwale\elasticsearch\Newtonsoft.Json.dll</HintPath>
     </Reference>
-  
-    <Reference Include="RabbitMQ.Client">
-      <HintPath>..\..\..\..\..\Desktop\Assignment\Training project\memcachedandrabbitmqsampleproject\RabbitMQ.Client.dll</HintPath>
-    </Reference>
-	
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -71,24 +57,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UsedCarBL\UsedCarBL.csproj">
-      <Project>{29758f2d-5bf0-4b30-83fc-401a589994f6}</Project>
-      <Name>UsedCarBL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\UsedCarEntities\UsedCarEntities.csproj">
-      <Project>{d65f45b2-1701-46fd-931f-4f1cc5f70e94}</Project>
-   <!-- <WCFMetadata Include="Service References\" />-->
-	</ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\UsedCarEntities\UsedCarEntities.csproj">
-      <Project>{d65f45b2-1701-46fd-931f-4f1cc5f70e94}</Project>
-      <Name>UsedCarEntities</Name>
-      <Name>UsedCarEntities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\UsedCarRepository\UsedCarDAL.csproj">
-      <Project>{2a840e04-3d7e-493a-96a0-e870c89bda63}</Project>
-      <Name>UsedCarDAL</Name>
+    <ProjectReference Include="..\CarEntities\CarEntities.csproj">
+      <Project>{28e66cdf-df3e-4afb-a842-a346a1428247}</Project>
+      <Name>CarEntities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
