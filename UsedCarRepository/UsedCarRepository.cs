@@ -154,6 +154,9 @@ namespace UsedCarDAL
                 //int rowsInserted = con.Execute("AddStock_AS", param, commandType:CommandType.StoredProcedure);
 
                 response = con.Query<int>("EditStock_AS", param, commandType: CommandType.StoredProcedure);
+                MemCacheManager memCacheManager = new MemCacheManager();
+                bool isDeleted = memCacheManager.DeleteFromCache(Convert.ToString(id));
+                
 
             }
             return response.ElementAt(0);

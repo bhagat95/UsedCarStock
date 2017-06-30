@@ -52,6 +52,22 @@
             <div id="listing-section">
                 
                     @{Html.RenderPartial("~/Views/Shared/_bindCarResult.cshtml", Model);}
+                @Html.PagedListPager(Model, page => Url.Action("All", new { page }))
+                <script>
+                    $(document).ready(function () {
+                        $('.pagination').each(function () {
+                            $(this).children().css("display", "none");;
+                        });
+                        $('.PagedList-skipToPrevious').each(function () {
+                            $(this).css("display", "block");
+                            $(this).children().html("<button>prev</button>");
+                        });
+                        $('.PagedList-skipToNext').each(function () {
+                            $(this).css("display", "block");
+                            $(this).children().html("<button>next</button>");
+                        });
+                    });
+                </script>
                 
 </div>
         </center>

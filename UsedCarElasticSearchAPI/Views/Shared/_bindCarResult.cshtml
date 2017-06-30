@@ -12,7 +12,7 @@
     {
 
 
-        <tr><td rowspan="3"><a href="./CarProfile/@obj.Id"><img src="/Content/images/@obj.ImgUri" width="200" height="120" /></a></td><td colspan="3"><a href="./CarProfile/@obj.Id"> @obj.Make @obj.Model @obj.Version</a></td></tr>
+        <tr><td rowspan="3"><a href="./carprofile/@obj.Id"><img src="/content/images/@obj.ImgUri" width="200" height="120" /></a></td><td colspan="3"><a href="./carprofile/@obj.Id"> @obj.Make @obj.Model @obj.Version</a></td></tr>
         <tr><td>&#8377 @obj.Price</td><td colspan="2">@obj.City</td></tr>
         <tr><td>@obj.Kilometer Km</td><td>@obj.FuelType</td><td>@obj.Year</td></tr>
 
@@ -25,21 +25,6 @@ else
 }
     
 </table>
-@Html.PagedListPager(Model, page => Url.Action("All", new { page}))
-<script>
-    $(document).ready(function () { 
-    $('.pagination').each(function () {
-        $(this).children().css("display", "none");;
-    });
-    $('.PagedList-skipToPrevious').each(function () {
-        $(this).css("display", "block");
-        $(this).children().html("<button>prev</button>");
-    });
-    $('.PagedList-skipToNext').each(function () {
-        $(this).css("display", "block");
-        $(this).children().html("<button>next</button>");
-    });
-    });
-</script>
+
             
 
