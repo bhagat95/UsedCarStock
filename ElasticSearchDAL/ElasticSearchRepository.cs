@@ -24,10 +24,10 @@ namespace ElasticSearchDAL
         {
 
             int start, end;
-              start = page*10;
-                end =  10;
+              start = page*5;
+                end =  5;
 
-                if (City.Equals("all") && MinBudget.Equals(0) && MaxBudget.Equals(0))
+                if (City.Equals("all") && MinBudget.Equals(0) && MaxBudget.Equals(int.MaxValue))
             {
                 var searchResult = client.Search<UsedCarModel>(s => s
                 .Index(UsedCarElasticIndex)
@@ -39,23 +39,23 @@ namespace ElasticSearchDAL
                 );
                 return searchResult.Documents;
             }
-            else if (City != "all" && MinBudget.Equals(0) && MaxBudget.Equals(0))
-            {
+                else if (City != "all" && MinBudget.Equals(0) && MaxBudget.Equals(0))
+                {
 
 
-                var searchResult = client.Search<UsedCarModel>(x =>
-                 x.Index(UsedCarElasticIndex)
-                .Type(UsedCarElasticType)
-                .From(start)
-                .Size(end)
-                .Query(q => q
-                .Term(p => p.City, City.ToLower()))
-                );
+                    var searchResult = client.Search<UsedCarModel>(x =>
+                     x.Index(UsedCarElasticIndex)
+                    .Type(UsedCarElasticType)
+                    .From(start)
+                    .Size(end)
+                    .Query(q => q
+                    .Term(p => p.City, City.ToLower()))
+                    );
 
 
-                return searchResult.Documents;
-            }
-                else if (City.Equals("all") && MaxBudget != 0)
+                    return searchResult.Documents;
+                }
+                else if (City.Equals("all") && MaxBudget != int.MaxValue)
                 {
                     var searchResult = client.Search<UsedCarModel>(x =>
                      x.Index(UsedCarElasticIndex)

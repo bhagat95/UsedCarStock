@@ -31,7 +31,7 @@ namespace UsedCarElasticSearchAPI.Controllers
             
             ElasticSearchRepository elasticRepo = new ElasticSearchRepository();
 
-            IEnumerable<UsedCarModel> cars = elasticRepo.Search(0, "all", 0, 0);
+            IEnumerable<UsedCarModel> cars = elasticRepo.Search(0, "all", 0, int.MaxValue);
            
             return View("~/Views/UsedCars/SearchResult.cshtml", cars);
         }
