@@ -19,29 +19,35 @@ namespace ElasticSearchDAL
         string UsedCarElasticIndex = "trainingelasticindex";
         string UsedCarElasticType = "usedcar";
 
-       
-        public IEnumerable<UsedCarModel> Search(string City=null, int MinBudget=0, int MaxBudget=int.MaxValue )
+
+        public IEnumerable<UsedCarModel> Search(int page, string City = "all", int MinBudget = 0, int MaxBudget = int.MaxValue)
         {
 
+            int start, end;
+              start = page*10;
+                end =  10;
 
-            
-            if(string.IsNullOrEmpty(City) && MinBudget.Equals(0) && MaxBudget.Equals(0))
+                if (City.Equals("all") && MinBudget.Equals(0) && MaxBudget.Equals(0))
             {
-                var searchResult = client.Search<UsedCarModel>(s =>
-                s.Index(UsedCarElasticIndex)
+                var searchResult = client.Search<UsedCarModel>(s => s
+                .Index(UsedCarElasticIndex)
                 .Type(UsedCarElasticType)
+                .From(start)
+                .Size(end)
                 .MatchAll()
-                
+
                 );
                 return searchResult.Documents;
             }
-            else if(City!=null && MinBudget.Equals(0) &&MaxBudget.Equals(0))
+            else if (City != "all" && MinBudget.Equals(0) && MaxBudget.Equals(0))
             {
 
 
                 var searchResult = client.Search<UsedCarModel>(x =>
-                 x.Index("trainingelasticindex")
-                .Type("usedcar")
+                 x.Index(UsedCarElasticIndex)
+                .Type(UsedCarElasticType)
+                .From(start)
+                .Size(end)
                 .Query(q => q
                 .Term(p => p.City, City.ToLower()))
                 );
@@ -49,32 +55,36 @@ namespace ElasticSearchDAL
 
                 return searchResult.Documents;
             }
-            //else if (string.IsNullOrEmpty(City) &&  MaxBudget != 0)
-            //{
-            //    var searchResult = client.Search<CarDetail>(s =>
-            //    s.Index("training_project_rk")
-            //    .Type("usedcarstock")
-            //    .Query(q=>q
-            //    .Range(r => r.OnField(fi => fi.Price).LowerOrEquals(MaxBudget).GreaterOrEquals(MinBudget)))
-            //    );
-            //    return searchResult.Documents;
-            //}
+                else if (City.Equals("all") && MaxBudget != 0)
+                {
+                    var searchResult = client.Search<UsedCarModel>(x =>
+                     x.Index(UsedCarElasticIndex)
+                    .Type(UsedCarElasticType)
+                    .From(start)
+                    .Size(end)
+                    .Query(q => q
+                    .Range(r => r.OnField(fi => fi.Price).LowerOrEquals(MaxBudget).GreaterOrEquals(MinBudget)))
+                    );
+                    return searchResult.Documents;
+                }
             else
             {
                 var searchResult = client.Search<UsedCarModel>(s =>
                 s.Index(UsedCarElasticIndex)
                 .Type(UsedCarElasticType)
+                .From(start)
+                .Size(end)
                 .Query(q => q
-                .Term(p=>p.City,City.ToLower())&q
+                .Term(p => p.City, City.ToLower()) & q
                 .Range(r => r.OnField(fi => fi.Price).LowerOrEquals(MaxBudget).GreaterOrEquals(MinBudget)))
                 );
-
-                return searchResult.Documents;      
-            }
                 
-            
-            
-           
+                return searchResult.Documents;
+            }
+
+
+
+
         }
 
 
@@ -104,17 +114,17 @@ namespace ElasticSearchDAL
             {
                 UsedCarRepository us = new UsedCarRepository();
                 UsedCarModel usedCarModel = us.GetSingleCar(Id);
-                
+
                 var index = client.Index(usedCarModel, i => i
                 .Index(UsedCarElasticIndex)
                 .Type(UsedCarElasticType)
                 .Id(usedCarModel.Id)
                      );
-                    return true;
+                return true;
             }
             catch (Exception e)
             {
-                
+
                 throw e;
             }
             return false;
@@ -133,7 +143,7 @@ namespace ElasticSearchDAL
             }
             catch (Exception e)
             {
-                
+
                 throw e;
             }
             //client.Delete<CarDetail>(5);
@@ -171,9 +181,9 @@ namespace ElasticSearchDAL
                     string message = Encoding.UTF8.GetString(result.Body);
                     Int32.TryParse(message, out Id);
                     Add(Id);
-                   
+
                 }
-                
+
                 channel.Close();
                 connection.Close();
             }
@@ -249,5 +259,5 @@ namespace ElasticSearchDAL
 
     }
 
-   
+
 }

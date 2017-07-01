@@ -15,9 +15,10 @@
         <center>
             @if (Model != null)
             {
+                string[] substrings = Model.ImgUri.Split(';');
                 <h2>@Model.Make @Model.Model @Model.Version</h2>
                 <br />
-                <img src="@Model.ImgUri" alt="car image" width="500" height="200" />
+                <img src="@substrings.ElementAt(1)" alt="car image" width="640" height="348" />
                 <br />
                 <p><b>Price:</b> @Model.Price</p>
                 <p><b>Year:</b> @Model.Year</p>

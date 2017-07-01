@@ -1,7 +1,7 @@
 ﻿@using PagedList;
 @using PagedList.Mvc;
 
-@model IPagedList<UsedCarEntities.UsedCarModel>
+@model IEnumerable<UsedCarEntities.UsedCarModel>
             
     @{
         
@@ -18,14 +18,7 @@
                 padding:5px;
                 margin:5px;
             }
-            .pagination{
-                display:inline-block;
-            }
-            .pagination li{
-               list-style:none;
-               margin:5px;
-               display:inline-block;
-            }
+            
         </style>
         <script src="~/Scripts/jquery-3.1.1.js"></script>
     </head>
@@ -35,7 +28,7 @@
                 <h2>Used Cars Powered by <i>Flatmates</i></h2>
                 <span>Fileter by location:</span>
                 <select id="location" >
-                    <option value="" selected="selected">city</option>
+                    <option value="all" selected="selected">city</option>
                     <option value="Mumbai">mumbai</option>
                     <option value="Delhi">delhi</option>
                     <option value="Nagpur">nagpur</option>
@@ -51,29 +44,116 @@
 
             <div id="listing-section">
                 
-                    @{Html.RenderPartial("~/Views/Shared/_bindCarResult.cshtml", Model);}
-                @Html.PagedListPager(Model, page => Url.Action("All", new { page }))
-                <script>
-                    $(document).ready(function () {
-                        $('.pagination').each(function () {
-                            $(this).children().css("display", "none");;
-                        });
-                        $('.PagedList-skipToPrevious').each(function () {
-                            $(this).css("display", "block");
-                            $(this).children().html("<button>prev</button>");
-                        });
-                        $('.PagedList-skipToNext').each(function () {
-                            $(this).css("display", "block");
-                            $(this).children().html("<button>next</button>");
-                        });
-                    });
-                </script>
+                @{Html.RenderPartial("~/Views/Shared/_bindCarResult.cshtml", Model);}
+
+             
+                
                 
 </div>
+            <button id="btnprev">prev</button><button id="btnnext">next</button>
         </center>
         
         <script>
-            $(document).ready(function () { 
+            function getUrlVars() {
+                var vars = [], hash;
+                var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+                for (var i = 0; i < hashes.length; i++) {
+                    hash = hashes[i].split('=');
+                    vars.push(hash[0]);
+                    vars[hash[0]] = hash[1];
+                }
+                return vars;
+            }
+            function updateQueryStringParameter(uri, key, value) {
+                var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+                var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+                if (uri.match(re)) {
+                    return uri.replace(re, '$1' + key + "=" + value + '$2');
+                }
+                else {
+                    return uri + separator + key + "=" + value;
+                }
+            }
+            $(document).ready(function () {
+                var res = getUrlVars();
+                var page = getUrlVars()["page"];
+                console.log("showing page= " + page);
+                if (page == 0 || typeof page === "undefined")
+                {
+                    $('#btnprev').css("display", "none");
+                }
+                else {
+                    $('#btnprev').css("display", "block");
+                    console.log("a gya ander");
+                }
+               
+                $('#btnprev').click(function () {
+                    var res = getUrlVars();
+                    var page = getUrlVars()["page"];
+                    if (!page || page==0) {
+                        page = 0;
+                       
+                    }
+                    else {
+                      
+                        page--;
+                    }
+                    console.log(page);
+                    var cityName = getUrlVars()["city"];
+                    if (!cityName) {
+                        cityName = "all";
+                    }
+                    var minBudget = getUrlVars()["minbudget"];
+                    if (!minBudget) {
+                        minBudget = 0;
+                    }
+                    var maxBudget = getUrlVars()["maxbudget"];
+                    if (!maxBudget) {
+                        maxBudget = 0;
+                    }
+                 
+                    $("#listing-section").load("/UsedCars/Filter/?page=" + page+"&city=" + cityName + "&minbudget=" + minBudget + "&maxbudget=" + maxBudget, function (response, status) {
+                        if (status == "error") {
+                            console.log("sdgjsgk");
+                        }
+                    });
+
+                });
+                $('#btnnext').click(function () {
+                    
+                    var res = getUrlVars();
+                    var page = getUrlVars()["page"];
+                    if (!page)
+                    {
+                        page = 0;
+                        page++;
+                    }
+                    else {
+                        page++;
+                    }
+                    console.log(page);
+                    var cityName = getUrlVars()["city"];
+                    if (!cityName)
+                    {
+                        cityName = "all";
+                    }
+                    var minBudget = getUrlVars()["minbudget"];
+                    if (!minBudget) {
+                        minBudget = 0;
+                    }
+                    var maxBudget = getUrlVars()["maxbudget"];
+                    if (!maxBudget) {
+                        maxBudget = 0;
+                    }
+                    updateQueryStringParameter("http://localhost:57285/UsedCars/All", page, page);
+                   
+                    $("#listing-section").load("/UsedCars/Filter/?page=" + page + "&city=" + cityName + "&minbudget=" + minBudget + "&maxbudget=" + maxBudget, function (response, status) {
+                        if (status == "error") {
+                            console.log("sdgjsgk");
+                        }
+                    });
+
+                });
                 $('.numbersOnly').keyup(function () {
                     this.value = this.value.replace(/[^0-9\.]/g, '');
                 });
@@ -100,7 +180,7 @@
 
                 $('#location').change(function () {
                     var cityName = $(this).val();
-                    $("#listing-section").load("/UsedCars/Filter/?city=" +cityName, function (response, status) {
+                    $("#listing-section").load("/UsedCars/Filter/?city=" + cityName, function (response, status) {
                         if (status == "error") {
                             console.log("sdgjsgk");
                         }

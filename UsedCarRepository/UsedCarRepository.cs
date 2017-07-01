@@ -12,7 +12,7 @@ using Dapper;
 using RabbitMQ.Client;
 using UsedCarBL;
 using ElasticSearchDAL;
-
+using Newtonsoft.Json;
 
 namespace UsedCarDAL
 {
@@ -106,6 +106,9 @@ namespace UsedCarDAL
         {
 
             var param = new DynamicParameters();
+            ImageData imageData = new ImageData();
+            imageData.Url = usedCarModel.ImgUri;
+            //imageData.Url = "https://imgd.aeplcdn.com/891x501/cw/ucp/stockApiImg/2697XMS_1085006_1_8031299.jpg?q=85";
             
             param.Add("Price", usedCarModel.Price);
             param.Add("Year", usedCarModel.Year);
@@ -117,7 +120,7 @@ namespace UsedCarDAL
             param.Add("MakeId", usedCarModel.MakeId);
             param.Add("ModelId", usedCarModel.ModelId);
             param.Add("VersionId", usedCarModel.VersionId);
-            usedCarModel.ImgUri = System.Web.Configuration.WebConfigurationManager.AppSettings["ImagePath"].ToString()+"l_car_";
+            usedCarModel.ImgUri = System.Web.Configuration.WebConfigurationManager.AppSettings["ImagePath"].ToString();
             param.Add("ImgUri", usedCarModel.ImgUri);
             //param.Add("IsAvailable", usedCarModel.IsAvailable);
 
@@ -129,6 +132,11 @@ namespace UsedCarDAL
                 id = con.Query<int>("AddStock_AS", param, commandType: CommandType.StoredProcedure);
 
             }
+            imageData.Id = id.ElementAt(0);
+            
+            //imageData.Type = ImageFormat.Jpeg;
+
+            AddImageDataRabbitMQ(imageData);
 
             AddIdRabbitMQ(id.ElementAt(0));
             //new ElasticSearchRepository().GlobalRabbitMQSubscriber();
@@ -208,5 +216,48 @@ namespace UsedCarDAL
         }
 
         public object id { get; set; }
+
+
+
+
+        public bool AddImageDataRabbitMQ(ImageData imageData)
+        {
+            try
+            {
+                //ImageData imageData = new ImageData()
+                //{
+                //    Id = 1,
+                //    Url = "yoyoyoyo",
+                //    Type = "png"
+                //};
+
+                String SerializedObject = JsonConvert.SerializeObject(imageData);
+
+                var connectionFactory = new ConnectionFactory() { HostName = "172.16.0.11" };
+                IConnection connection = connectionFactory.CreateConnection();
+                IModel channel = connection.CreateModel();
+
+                String Queue = "UsedCarImageUploadQueue";
+
+                channel.QueueDeclare(Queue, false, false, false, null);
+
+                byte[] message = Encoding.UTF8.GetBytes(SerializedObject);
+
+                channel.BasicPublish("", Queue, null, message);
+                Console.WriteLine("Press any key to exit");
+                //Console.ReadKey();
+                channel.Close();
+                connection.Close();
+                return true;
+            }
+
+            catch(Exception e)
+            {
+                Console.WriteLine(e + "");
+            }
+            return false;
+        }
+
+
     }
 }

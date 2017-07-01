@@ -24,25 +24,29 @@ namespace UsedCarElasticSearchAPI.Controllers
     {
         
          //GET: UsedCars
-        public ActionResult All(int? page)
+        public ActionResult All()
         {
+
+
             
-             
             ElasticSearchRepository elasticRepo = new ElasticSearchRepository();
 
-            IEnumerable<UsedCarModel> cars = elasticRepo.Search(null,0,0);
+            IEnumerable<UsedCarModel> cars = elasticRepo.Search(0, "all", 0, 0);
            
-            return View("~/Views/UsedCars/SearchResult.cshtml", cars.ToList().ToPagedList(page ?? 1,3));
+            return View("~/Views/UsedCars/SearchResult.cshtml", cars);
         }
        
-        public ActionResult Filter(int? page)
+        public ActionResult Filter()
         {
+            Int32 Page = new Int32();
+            Page = Convert.ToInt32(Request.QueryString["page"]);
             string City = Request.QueryString["city"];
             int MinBudget = Convert.ToInt32(Request.QueryString["minbudget"]);
             int MaxBudget = Convert.ToInt32(Request.QueryString["maxbudget"]);
             ElasticSearchRepository elasticRepo = new ElasticSearchRepository();
-            IEnumerable<UsedCarModel> cars = elasticRepo.Search(City, MinBudget, MaxBudget);
-            return View("~/Views/Shared/_bindCarResult.cshtml", cars.ToList().ToPagedList(page ?? 1, 3));
+            IEnumerable<UsedCarModel> cars = elasticRepo.Search(Page, City, MinBudget, MaxBudget);
+            
+            return View("~/Views/Shared/_bindCarResult.cshtml", cars);
         }
 
     
@@ -55,10 +59,9 @@ namespace UsedCarElasticSearchAPI.Controllers
                 UsedCarRepository usedCarRepositoty = new UsedCarRepository();
                 usedCarModel = usedCarRepositoty.GetSingleCarMemCache(id);
 
-
-                ImageProcessorRmq imageProcessorES = new ImageProcessorRmq();
-                imageProcessorES.SaveImage("https://imgd.aeplcdn.com/891x501/cw/ucp/stockApiImg/2697XMS_1085006_1_8031299.jpg?q=85",
-                    ImageFormat.Jpeg, id);
+                //ImageProcessorRmq imageProcessorES = new ImageProcessorRmq();
+                //imageProcessorES.SaveImage("https://imgd.aeplcdn.com/891x501/cw/ucp/stockApiImg/2697XMS_1085006_1_8031299.jpg?q=85",
+                //    ImageFormat.Jpeg, id);
                 return View("~/Views/UsedCars/ProfileView.cshtml", usedCarModel);
             }
             catch (Exception err)
