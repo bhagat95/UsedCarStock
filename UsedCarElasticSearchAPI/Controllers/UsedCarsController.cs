@@ -31,7 +31,13 @@ namespace UsedCarElasticSearchAPI.Controllers
             
             ElasticSearchRepository elasticRepo = new ElasticSearchRepository();
 
-            IEnumerable<UsedCarModel> cars = elasticRepo.Search(0, "all", 0, int.MaxValue);
+            IEnumerable<UsedCarModel> cars = elasticRepo.Search(0, "all", 0, 0);
+            
+            //UsedCarRepository usedCarRepositoty = new UsedCarRepository();
+            //IEnumerable<UsedCarCitiesModel> cities = usedCarRepositoty.GetCitiesMemCache();
+            
+            //ViewBag.Cars = cars;
+          //  ViewBag.Cities = cities;
            
             return View("~/Views/UsedCars/SearchResult.cshtml", cars);
         }
@@ -63,6 +69,26 @@ namespace UsedCarElasticSearchAPI.Controllers
                 //imageProcessorES.SaveImage("https://imgd.aeplcdn.com/891x501/cw/ucp/stockApiImg/2697XMS_1085006_1_8031299.jpg?q=85",
                 //    ImageFormat.Jpeg, id);
                 return View("~/Views/UsedCars/ProfileView.cshtml", usedCarModel);
+            }
+            catch (Exception err)
+            {
+
+                throw;
+            }
+
+
+        }
+        public ActionResult CarCities()
+        {
+            try
+            {
+
+                UsedCarRepository usedCarRepositoty = new UsedCarRepository();
+                IEnumerable<UsedCarCitiesModel> cities = usedCarRepositoty.GetCitiesMemCache();
+
+
+
+                return View("~/Views/Shared/_bindCities.cshtml", cities);
             }
             catch (Exception err)
             {

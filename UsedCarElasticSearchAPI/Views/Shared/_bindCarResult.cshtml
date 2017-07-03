@@ -1,5 +1,4 @@
-﻿@using PagedList;
-@using PagedList.Mvc;
+﻿
 
 @model IEnumerable<UsedCarEntities.UsedCarModel>
 @{
@@ -18,6 +17,7 @@
 
 
     }
+   
 }
 else
 {
@@ -25,6 +25,24 @@ else
 }
     
 </table>
+@if (Model.Count() < 5)
+{
+    <script>
+        $('#btnnext').each(function () {
+            $(this).css("display", "none");
+        });
+
+    </script>
+}
+else
+{
+    <script>
+        $('#btnnext').each(function () {
+            $(this).css("display", "block");
+        });
+
+    </script>
+}
 
             
 

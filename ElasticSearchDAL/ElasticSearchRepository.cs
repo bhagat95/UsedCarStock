@@ -27,7 +27,7 @@ namespace ElasticSearchDAL
               start = page*5;
                 end =  5;
 
-                if (City.Equals("all") && MinBudget.Equals(0) && MaxBudget.Equals(int.MaxValue))
+                if (City.Equals("all") && MinBudget.Equals(0) && MaxBudget.Equals(0))
             {
                 var searchResult = client.Search<UsedCarModel>(s => s
                 .Index(UsedCarElasticIndex)

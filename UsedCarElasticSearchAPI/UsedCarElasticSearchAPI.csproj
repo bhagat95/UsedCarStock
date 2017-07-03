@@ -304,6 +304,7 @@
     <Content Include="Views\UsedCars\sample.cshtml" />
     <Content Include="Views\Shared\_bindCarResult.cshtml" />
     <Content Include="Views\UsedCars\ProfileView.cshtml" />
+    <Content Include="Views\Shared\_bindCities.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

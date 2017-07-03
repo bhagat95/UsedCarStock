@@ -1,0 +1,15 @@
+﻿@model IEnumerable<UsedCarEntities.UsedCarCitiesModel>
+@{
+    Layout = null;
+    
+}
+<select id="location">
+    <option value="all" selected="selected">city</option>
+    @foreach (var obj in Model)
+    {
+  
+    <option value="@obj.Name">@obj.Name</option>
+ 
+    }
+    
+</select>

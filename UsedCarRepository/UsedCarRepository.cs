@@ -69,6 +69,33 @@ namespace UsedCarDAL
             }
 
         }
+        public IEnumerable<UsedCarCitiesModel> GetAllCities()
+        {
+          
+            
+            using (var con = connection)
+            {
+                IEnumerable<UsedCarCitiesModel> Result = con.Query<UsedCarCitiesModel>("GetCities_AS", null,
+                    commandType: CommandType.StoredProcedure);
+                return Result;
+            }
+
+        }
+
+        public IEnumerable<UsedCarCitiesModel> GetCitiesMemCache()
+        {
+            try
+            {
+                MemCacheManager mc = new MemCacheManager();
+                return mc.GetFromCache<IEnumerable<UsedCarCitiesModel>>(Convert.ToString(id), new TimeSpan(0, 30, 0), () => GetAllCities());
+            }
+            catch (Exception err)
+            {
+
+                throw;
+            }
+            //return this;
+        }
 
         public UsedCarModel GetSingleCar(int id)
         {
@@ -182,7 +209,7 @@ namespace UsedCarDAL
         }
 
 /// <summary>
-/// Make SIngleton classes and single instances of Connection Factory
+/// Make SIngleton classes
 /// </summary>
 /// <param name="id"></param>
 /// <returns></returns>
