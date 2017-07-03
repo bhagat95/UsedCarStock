@@ -48,9 +48,11 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\..\..\Downloads\Newtonsoft.Json.dll</HintPath>
     </Reference>
+  
     <Reference Include="RabbitMQ.Client">
       <HintPath>..\..\..\..\..\Desktop\Assignment\Training project\memcachedandrabbitmqsampleproject\RabbitMQ.Client.dll</HintPath>
     </Reference>
+	
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -75,7 +77,8 @@
     </ProjectReference>
     <ProjectReference Include="..\UsedCarEntities\UsedCarEntities.csproj">
       <Project>{d65f45b2-1701-46fd-931f-4f1cc5f70e94}</Project>
-    <WCFMetadata Include="Service References\" />
+   <!-- <WCFMetadata Include="Service References\" />-->
+	</ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UsedCarEntities\UsedCarEntities.csproj">

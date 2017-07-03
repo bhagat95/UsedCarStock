@@ -40,7 +40,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Dapper">
-      <HintPath>..\..\..\..\..\Downloads\Dapper.dll</HintPath>
+      <HintPath>..\..\..\..\..\Desktop\Assignment\Training project\Dapper.dll</HintPath>
     </Reference>
     <Reference Include="Enyim.Caching, Version=2.12.0.0, Culture=neutral, PublicKeyToken=cec98615db04012e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -48,7 +48,7 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MySql.Data">
-      <HintPath>..\..\..\..\..\Downloads\Dapper\MySql.Data.dll</HintPath>
+      <HintPath>..\..\..\..\..\Desktop\Assignment\Training project\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="RabbitMQ.Client, Version=3.6.6.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

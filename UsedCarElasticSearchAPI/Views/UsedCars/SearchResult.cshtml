@@ -1,120 +1,216 @@
-﻿@using PagedList;
-@using PagedList.Mvc;
+﻿@model IEnumerable<UsedCarEntities.UsedCarModel>
 
-@model IPagedList<UsedCarEntities.UsedCarModel>
-            
-    @{
-        
-        Layout = null;
-    }
+@{
 
-    <!doctype HTML>
+    Layout = null;
+}
 
-    <html lang="en">
-    <head>
-        <title>Used Cars</title>
-        <style>
-            td{
-                padding:5px;
-                margin:5px;
-            }
-            .pagination{
-                display:inline-block;
-            }
-            .pagination li{
-               list-style:none;
-               margin:5px;
-               display:inline-block;
-            }
-        </style>
-        <script src="~/Scripts/jquery-3.1.1.js"></script>
-    </head>
-    <body>
-        <center>
-            <div>
-                <h2>Used Cars Powered by <i>Flatmates</i></h2>
-                <span>Fileter by location:</span>
-                <select id="location" >
-                    <option value="" selected="selected">city</option>
-                    <option value="Mumbai">mumbai</option>
-                    <option value="Delhi">delhi</option>
-                    <option value="Nagpur">nagpur</option>
-                </select>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <span>Filter by budget</span>
+<!doctype html>
 
-                <input id="minBudget" class="numbersOnly" placeholder="min value" size="10" />
-                <input id="maxBudget" class="numbersOnly" placeholder="max value" size="10" />
+<html lang="en">
+<head>
+    <title>Used Cars</title>
+    <style>
+        td {
+            padding: 5px;
+            margin: 5px;
+        }
+    </style>
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+</head>
+<body>
+    <center>
+        <div>
+            <h2>Used Cars Powered by <i>Flatmates</i></h2>
+            <span>Fileter by location:</span>
 
-                <input id="gobtn" type="button" value="Go" />
-            </div>
+            @{Html.RenderAction("CarCities");}
+            @*~/Views/Shared/_bindCities.cshtml*@
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <span>Filter by budget</span>
 
-            <div id="listing-section">
-                
-                    @{Html.RenderPartial("~/Views/Shared/_bindCarResult.cshtml", Model);}
-                @Html.PagedListPager(Model, page => Url.Action("All", new { page }))
-                <script>
-                    $(document).ready(function () {
-                        $('.pagination').each(function () {
-                            $(this).children().css("display", "none");;
-                        });
-                        $('.PagedList-skipToPrevious').each(function () {
-                            $(this).css("display", "block");
-                            $(this).children().html("<button>prev</button>");
-                        });
-                        $('.PagedList-skipToNext').each(function () {
-                            $(this).css("display", "block");
-                            $(this).children().html("<button>next</button>");
-                        });
-                    });
-                </script>
-                
-</div>
-        </center>
-        
+            <input id="minBudget" class="numbersOnly" placeholder="min value" size="10" />
+            <input id="maxBudget" class="numbersOnly" placeholder="max value" size="10" />
+
+            <input id="gobtn" type="button" value="Go" />
+        </div>
+
+        <div id="listing-section">
+
+            @{Html.RenderPartial("~/Views/Shared/_bindCarResult.cshtml", Model);}
+
+
+
+
+        </div>
+        <button id="btnprev">prev</button><button id="btnnext">next</button>
+    </center>
+    @if (Model.Count() < 5)
+    {
         <script>
-            $(document).ready(function () { 
-                $('.numbersOnly').keyup(function () {
-                    this.value = this.value.replace(/[^0-9\.]/g, '');
-                });
-            $('#gobtn').click(function () {
-               
-                    var minBudget = $('#minBudget').val();
-                    var maxBudget = $('#maxBudget').val();
-                    if (minBudget < 10000 || !minBudget)
-                    {
-                        minBudget = 10000;
-                    }
-                    if (maxBudget >= 50000000 || !maxBudget)
-                    {
-                        maxBudget = 50000000;
-                    }
-
-                    var cityName = $('#location').val();
-                    $("#listing-section").load("/UsedCars/Filter/?city=" + cityName + "&minbudget=" + minBudget + "&maxbudget=" + maxBudget, function (response, status) {
-                        if (status == "error") {
-                            console.log("sdgjsgk");
-                        }
-                    });
-                });
-
-                $('#location').change(function () {
-                    var cityName = $(this).val();
-                    $("#listing-section").load("/UsedCars/Filter/?city=" +cityName, function (response, status) {
-                        if (status == "error") {
-                            console.log("sdgjsgk");
-                        }
-                    });
-                });
-               
-                
-               
-               /* $("#minBudget").numeric();
-                $("#maxBudget").numeric();*/
-                
+            $('#btnnext').each(function () {
+                $(this).css("display", "none");
             });
+
         </script>
-    </body>
-    
+    }
+    else
+    {
+        <script>
+            $('#btnnext').each(function () {
+                $(this).css("display", "block");
+            });
+
+        </script>
+    }
+    <script>
+
+        $(document).ready(function () {
+
+            function getUrlVars() {
+                var vars = [], hash;
+                var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+                for (var i = 0; i < hashes.length; i++) {
+                    hash = hashes[i].split('=');
+                    vars.push(hash[0]);
+                    vars[hash[0]] = hash[1];
+                }
+                return vars;
+            }
+
+            $('.numbersOnly').keyup(function () {
+                this.value = this.value.replace(/[^0-9\.]/g, '');
+            });
+
+
+            var res = getUrlVars();
+            var page = getUrlVars()["page"];
+            console.log("showing page= " + page);
+            if (page == 0 || typeof page === "undefined") {
+                $('#btnprev').each(function () {
+                    $(this).css("display", "none");
+                });
+            }
+
+
+
+
+            $('#btnprev').click(function () {
+                var res = getUrlVars();
+                var page = getUrlVars()["page"];
+                if (typeof page === "undefined" || page == 0) {
+                    page = 0;
+
+                }
+                else {
+
+                    page--;
+                }
+
+                var cityName = getUrlVars()["city"];
+                if (!cityName) {
+                    cityName = "all";
+                }
+                var minBudget = getUrlVars()["minbudget"];
+                if (!minBudget || minBudget <= 10000) {
+                    minBudget = 10000;
+                }
+                var maxBudget = getUrlVars()["maxbudget"];
+                if (!maxBudget || maxBudget >= 50000000) {
+                    maxBudget = 50000000;
+                }
+                var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?page=' + page + '&city=' + cityName + '&minbudget=' + minBudget + '&maxbudget=' + maxBudget;
+                window.history.pushState({ path: newurl }, '', newurl);
+                $("#listing-section").load("/UsedCars/Filter/?page=" + page + "&city=" + cityName + "&minbudget=" + minBudget + "&maxbudget=" + maxBudget, function (response, status) {
+                    if (status == "error") {
+                        console.log("sdgjsgk");
+                    }
+                });
+                if (page === 0) {
+                    $(this).css("display", "none");
+                }
+                else {
+                    $(this).css("display", "block");
+                }
+
+            });
+            $('#btnnext').click(function () {
+
+                $('#btnprev').each(function () {
+                    $(this).css("display", "block");
+                });
+                var res = getUrlVars();
+                var page = getUrlVars()["page"];
+                if (!page) {
+                    page = 0;
+                    page++;
+                }
+                else {
+                    page++;
+                }
+
+                var cityName = getUrlVars()["city"];
+                if (!cityName) {
+                    cityName = "all";
+                }
+                var minBudget = getUrlVars()["minbudget"];
+                if (!minBudget || minBudget <= 10000) {
+                    minBudget = 10000;
+                }
+                var maxBudget = getUrlVars()["maxbudget"];
+                if (!maxBudget || maxBudget >= 50000000) {
+                    maxBudget = 50000000;
+                }
+                var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?page=' + page + '&city=' + cityName + '&minbudget=' + minBudget + '&maxbudget=' + maxBudget;
+                window.history.pushState({ path: newurl }, '', newurl);
+
+
+                $("#listing-section").load("/UsedCars/Filter/?page=" + page + "&city=" + cityName + "&minbudget=" + minBudget + "&maxbudget=" + maxBudget, function (response, status) {
+                    if (status == "error") {
+                        console.log("sdgjsgk");
+                    }
+                });
+
+            });
+
+            $('#gobtn').click(function () {
+
+                var minBudget = $('#minBudget').val();
+                var maxBudget = $('#maxBudget').val();
+                if (minBudget <= 10000 || !minBudget) {
+                    minBudget = 10000;
+                }
+                if (maxBudget >= 50000000 || !maxBudget) {
+                    maxBudget = 50000000;
+                }
+
+                var cityName = $('#location').val();
+                var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?&city=' + cityName + '&minbudget=' + minBudget + '&maxbudget=' + maxBudget;
+                window.history.pushState({ path: newurl }, '', newurl);
+                $("#listing-section").load("/UsedCars/Filter/?city=" + cityName + "&minbudget=" + minBudget + "&maxbudget=" + maxBudget, function (response, status) {
+                    if (status == "error") {
+                        console.log("sdgjsgk");
+                    }
+                });
+            });
+
+            $('#location').change(function () {
+                var cityName = $(this).val();
+                var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?&city=' + cityName;
+                window.history.pushState({ path: newurl }, '', newurl);
+                $("#listing-section").load("/UsedCars/Filter/?city=" + cityName, function (response, status) {
+                    if (status == "error") {
+                        console.log("sdgjsgk");
+                    }
+                });
+            });
+
+
+
+
+        });
+    </script>
+</body>
+
 
 </html>

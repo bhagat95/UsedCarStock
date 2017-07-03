@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{48F02D62-01E3-4B6C-94CD-499C9E492ABD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ElasticSearchDAL</RootNamespace>
+    <AssemblyName>ElasticSearchDAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Dapper">
+      <HintPath>..\..\..\..\..\Downloads\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Elasticsearch.Net">
+<<<<<<< HEAD
+      <HintPath>..\..\..\..\..\Downloads\Elasticsearch.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data">
+      <HintPath>..\..\..\..\..\Downloads\Dapper\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data">
+      <HintPath>..\..\Users\rahul.kushwaha\Downloads\Libs\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Nest">
+      <HintPath>..\..\..\..\..\Downloads\Nest.dll</HintPath>
+=======
+      <HintPath>..\..\..\..\..\Desktop\Assignment\Training project\Rahul\elasticmaterial\Elasticsearch.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Nest">
+      <HintPath>..\..\..\..\..\Desktop\Assignment\Training project\Rahul\elasticmaterial\Nest.dll</HintPath>
+>>>>>>> f_RabbitMQElastic
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\..\..\Downloads\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RabbitMQ.Client">
+      <HintPath>..\..\..\..\..\Desktop\Assignment\Training project\memcachedandrabbitmqsampleproject\RabbitMQ.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ElasticSearchRepository.cs" />
+    <Compile Include="ElasticClientInstance.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+<<<<<<< HEAD
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UsedCarEntities\UsedCarEntities.csproj">
+      <Project>{d65f45b2-1701-46fd-931f-4f1cc5f70e94}</Project>
+      <Name>UsedCarEntities</Name>
+=======
+    <ProjectReference Include="..\UsedCarBL\UsedCarBL.csproj">
+      <Project>{29758f2d-5bf0-4b30-83fc-401a589994f6}</Project>
+      <Name>UsedCarBL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UsedCarEntities\UsedCarEntities.csproj">
+      <Project>{d65f45b2-1701-46fd-931f-4f1cc5f70e94}</Project>
+      <Name>UsedCarEntities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UsedCarRepository\UsedCarDAL.csproj">
+      <Project>{2a840e04-3d7e-493a-96a0-e870c89bda63}</Project>
+      <Name>UsedCarDAL</Name>
+>>>>>>> f_RabbitMQElastic
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

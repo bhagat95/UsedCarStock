@@ -1,7 +1,6 @@
-﻿@using PagedList;
-@using PagedList.Mvc;
+﻿
 
-@model IPagedList<UsedCarEntities.UsedCarModel>
+@model IEnumerable<UsedCarEntities.UsedCarModel>
 @{
     Layout = null;
 }
@@ -11,13 +10,14 @@
     foreach (var obj in Model)
     {
 
-
-        <tr><td rowspan="3"><a href="./carprofile/@obj.Id"><img src="/content/images/@obj.ImgUri" width="200" height="120" /></a></td><td colspan="3"><a href="./carprofile/@obj.Id"> @obj.Make @obj.Model @obj.Version</a></td></tr>
+        string[] substrings = obj.ImgUri.Split(';');
+        <tr><td rowspan="3"><a href="./carprofile/@obj.Id"><img src="@substrings.ElementAt(0)" width="200" height="100" /></a></td><td colspan="3"><a href="./carprofile/@obj.Id"> @obj.Make @obj.Model @obj.Version</a></td></tr>
         <tr><td>&#8377 @obj.Price</td><td colspan="2">@obj.City</td></tr>
         <tr><td>@obj.Kilometer Km</td><td>@obj.FuelType</td><td>@obj.Year</td></tr>
 
 
     }
+   
 }
 else
 {
@@ -25,6 +25,24 @@ else
 }
     
 </table>
+@if (Model.Count() < 5)
+{
+    <script>
+        $('#btnnext').each(function () {
+            $(this).css("display", "none");
+        });
+
+    </script>
+}
+else
+{
+    <script>
+        $('#btnnext').each(function () {
+            $(this).css("display", "block");
+        });
+
+    </script>
+}
 
             
 
