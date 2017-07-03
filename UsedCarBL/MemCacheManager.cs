@@ -15,7 +15,7 @@ namespace UsedCarBL
     {
         TimeSpan _RefreshCacheDuration = new TimeSpan(0, 1, 0);
         private static MemcachedClient mc = null;
-        
+
         static MemCacheManager()
         {
             try
@@ -32,8 +32,8 @@ namespace UsedCarBL
                 Console.Write(err);
                 throw;
             }
-            
-          
+
+
         }
 
         public T GetFromCache<T>(string key, TimeSpan cacheDuration, Func<T> dbCallback)
@@ -49,7 +49,7 @@ namespace UsedCarBL
                     if (a = mc.Store(StoreMode.Add, key + "_AS_lock", "lock", DateTime.Now.AddSeconds(60)))
                     {
                         t = dbCallback();
-
+                        mc.Remove(key);
                         mc.Store(StoreMode.Add, key, t, DateTime.Now.Add(cacheDuration));
 
                         mc.Remove(key + "_AS_lock");

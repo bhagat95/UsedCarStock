@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace UsedCarEntities
 {
+    [Serializable]
     public class UsedCarCitiesModel
     {
         private int _Id;

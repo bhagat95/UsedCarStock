@@ -87,7 +87,7 @@ namespace UsedCarDAL
             try
             {
                 MemCacheManager mc = new MemCacheManager();
-                return mc.GetFromCache<IEnumerable<UsedCarCitiesModel>>(Convert.ToString(id), new TimeSpan(0, 30, 0), () => GetAllCities());
+                return mc.GetFromCache<IEnumerable<UsedCarCitiesModel>>("cities", new TimeSpan(0, 30, 0), () => GetAllCities());
             }
             catch (Exception err)
             {
@@ -167,7 +167,8 @@ namespace UsedCarDAL
 
             AddIdRabbitMQ(id.ElementAt(0));
             //new ElasticSearchRepository().GlobalRabbitMQSubscriber();
-
+            MemCacheManager mc = new MemCacheManager();
+            mc.DeleteFromCache("cities_AS");
             return id.ElementAt(0);
         }
 
