@@ -4,14 +4,11 @@
 @using System.Collections.ObjectModel
 @using UsedCarElasticSearchAPI.Areas.HelpPage.Models
 @model Collection<ApiDescription>
-
 @{
     ViewBag.Title = "ASP.NET Web API Help Page";
-
     // Group APIs by controller
     ILookup<HttpControllerDescriptor, ApiDescription> apiGroups = Model.ToLookup(api => api.ActionDescriptor.ControllerDescriptor);
 }
-
 <link type="text/css" href="~/Areas/HelpPage/HelpPage.css" rel="stylesheet" />
 <header class="help-page">
     <div class="content-wrapper">

@@ -19,42 +19,34 @@ namespace UsedCarStockAPI.Controllers
     //[Authorize]
     public class UsedCarController : ApiController
     {
-
-        //public string test()
-        //{
-        //    UsedCarModel usedCarModel = new UsedCarModel();
-
-        //    return usedCarModel.Year;
-        //}
+        UsedCarRepository _repo;
+  
         UsedCarModel usedCarModel = null;
 
         // GET api/values
+        public UsedCarController()
+        {
+            _repo = new UsedCarRepository();
+        }
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5
-        public UsedCarEntities.UsedCarModel Get(int id)
+        public UsedCarModel Get(int id)
         {
 
-            Console.WriteLine(id + " GET " + usedCarModel);
-            UsedCarRepository usedCarRepositoty = new UsedCarRepository();
-            return usedCarRepositoty.GetSingleCarMemCache(id);
-            //return usedCarModel;
+            //UsedCarRepository usedCarRepositoty = new UsedCarRepository();
+            return _repo.GetSingleCarMemCache(id);
         }
-
-       
-
-
 
         // POST api/values
         public String Post(UsedCarModel usedCarModel)
         {
             UsedCarRepository usedCarRepository = new UsedCarRepository();
             int id = usedCarRepository.AddCar(usedCarModel);
-           // Console.WriteLine(usedCarModel + "");
-            String uri = "http://localhost:59011/api/usedCar/" + id;
+            String uri = "http://localhost:59011/api/usedCar/" + id; //web config
             return uri;
         }
 

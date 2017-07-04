@@ -13,13 +13,11 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Description;
 using UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions;
 using UsedCarElasticSearchAPI.Areas.HelpPage.Models;
-
 namespace UsedCarElasticSearchAPI.Areas.HelpPage
 {
     public static class HelpPageConfigurationExtensions
     {
         private const string ApiModelPrefix = "MS_HelpPageApiModel_";
-
         /// <summary>
         /// Sets the documentation provider for help page.
         /// </summary>
@@ -29,7 +27,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
         {
             config.Services.Replace(typeof(IDocumentationProvider), documentationProvider);
         }
-
         /// <summary>
         /// Sets the objects that will be used by the formatters to produce sample requests/responses.
         /// </summary>
@@ -39,7 +36,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
         {
             config.GetHelpPageSampleGenerator().SampleObjects = sampleObjects;
         }
-
         /// <summary>
         /// Sets the sample request directly for the specified media type and action.
         /// </summary>
@@ -52,7 +48,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
         {
             config.GetHelpPageSampleGenerator().ActionSamples.Add(new HelpPageSampleKey(mediaType, SampleDirection.Request, controllerName, actionName, new[] { "*" }), sample);
         }
-
         /// <summary>
         /// Sets the sample request directly for the specified media type and action with parameters.
         /// </summary>
@@ -66,7 +61,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
         {
             config.GetHelpPageSampleGenerator().ActionSamples.Add(new HelpPageSampleKey(mediaType, SampleDirection.Request, controllerName, actionName, parameterNames), sample);
         }
-
         /// <summary>
         /// Sets the sample request directly for the specified media type of the action.
         /// </summary>
@@ -79,7 +73,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
         {
             config.GetHelpPageSampleGenerator().ActionSamples.Add(new HelpPageSampleKey(mediaType, SampleDirection.Response, controllerName, actionName, new[] { "*" }), sample);
         }
-
         /// <summary>
         /// Sets the sample response directly for the specified media type of the action with specific parameters.
         /// </summary>
@@ -93,7 +86,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
         {
             config.GetHelpPageSampleGenerator().ActionSamples.Add(new HelpPageSampleKey(mediaType, SampleDirection.Response, controllerName, actionName, parameterNames), sample);
         }
-
         /// <summary>
         /// Sets the sample directly for all actions with the specified media type.
         /// </summary>
@@ -104,7 +96,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
         {
             config.GetHelpPageSampleGenerator().ActionSamples.Add(new HelpPageSampleKey(mediaType), sample);
         }
-
         /// <summary>
         /// Sets the sample directly for all actions with the specified type and media type.
         /// </summary>
@@ -116,7 +107,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
         {
             config.GetHelpPageSampleGenerator().ActionSamples.Add(new HelpPageSampleKey(mediaType, type), sample);
         }
-
         /// <summary>
         /// Specifies the actual type of <see cref="System.Net.Http.ObjectContent{T}"/> passed to the <see cref="System.Net.Http.HttpRequestMessage"/> in an action.
         /// The help page will use this information to produce more accurate request samples.
@@ -129,7 +119,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
         {
             config.GetHelpPageSampleGenerator().ActualHttpMessageTypes.Add(new HelpPageSampleKey(SampleDirection.Request, controllerName, actionName, new[] { "*" }), type);
         }
-
         /// <summary>
         /// Specifies the actual type of <see cref="System.Net.Http.ObjectContent{T}"/> passed to the <see cref="System.Net.Http.HttpRequestMessage"/> in an action.
         /// The help page will use this information to produce more accurate request samples.
@@ -143,7 +132,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
         {
             config.GetHelpPageSampleGenerator().ActualHttpMessageTypes.Add(new HelpPageSampleKey(SampleDirection.Request, controllerName, actionName, parameterNames), type);
         }
-
         /// <summary>
         /// Specifies the actual type of <see cref="System.Net.Http.ObjectContent{T}"/> returned as part of the <see cref="System.Net.Http.HttpRequestMessage"/> in an action.
         /// The help page will use this information to produce more accurate response samples.
@@ -156,7 +144,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
         {
             config.GetHelpPageSampleGenerator().ActualHttpMessageTypes.Add(new HelpPageSampleKey(SampleDirection.Response, controllerName, actionName, new[] { "*" }), type);
         }
-
         /// <summary>
         /// Specifies the actual type of <see cref="System.Net.Http.ObjectContent{T}"/> returned as part of the <see cref="System.Net.Http.HttpRequestMessage"/> in an action.
         /// The help page will use this information to produce more accurate response samples.
@@ -170,7 +157,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
         {
             config.GetHelpPageSampleGenerator().ActualHttpMessageTypes.Add(new HelpPageSampleKey(SampleDirection.Response, controllerName, actionName, parameterNames), type);
         }
-
         /// <summary>
         /// Gets the help page sample generator.
         /// </summary>
@@ -182,7 +168,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                 typeof(HelpPageSampleGenerator),
                 k => new HelpPageSampleGenerator());
         }
-
         /// <summary>
         /// Sets the help page sample generator.
         /// </summary>
@@ -195,7 +180,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                 k => sampleGenerator,
                 (k, o) => sampleGenerator);
         }
-
         /// <summary>
         /// Gets the model description generator.
         /// </summary>
@@ -207,7 +191,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                 typeof(ModelDescriptionGenerator),
                 k => InitializeModelDescriptionGenerator(config));
         }
-
         /// <summary>
         /// Gets the model that represents an API displayed on the help page. The model is initialized on the first call and cached for subsequent calls.
         /// </summary>
@@ -230,27 +213,22 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                     config.Properties.TryAdd(modelId, model);
                 }
             }
-
             return (HelpPageApiModel)model;
         }
-
         private static HelpPageApiModel GenerateApiModel(ApiDescription apiDescription, HttpConfiguration config)
         {
             HelpPageApiModel apiModel = new HelpPageApiModel()
             {
                 ApiDescription = apiDescription,
             };
-
             ModelDescriptionGenerator modelGenerator = config.GetModelDescriptionGenerator();
             HelpPageSampleGenerator sampleGenerator = config.GetHelpPageSampleGenerator();
             GenerateUriParameters(apiModel, modelGenerator);
             GenerateRequestModelDescription(apiModel, modelGenerator, sampleGenerator);
             GenerateResourceDescription(apiModel, modelGenerator);
             GenerateSamples(apiModel, sampleGenerator);
-
             return apiModel;
         }
-
         private static void GenerateUriParameters(HelpPageApiModel apiModel, ModelDescriptionGenerator modelGenerator)
         {
             ApiDescription apiDescription = apiModel.ApiDescription;
@@ -268,7 +246,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                         typeDescription = modelGenerator.GetOrCreateModelDescription(parameterType);
                         complexTypeDescription = typeDescription as ComplexTypeModelDescription;
                     }
-
                     // Example:
                     // [TypeConverter(typeof(PointConverter))]
                     // public class Point
@@ -301,12 +278,10 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                     {
                         ParameterDescription uriParameter =
                             AddParameterDescription(apiModel, apiParameter, typeDescription);
-
                         if (!parameterDescriptor.IsOptional)
                         {
                             uriParameter.Annotations.Add(new ParameterAnnotation() { Documentation = "Required" });
                         }
-
                         object defaultValue = parameterDescriptor.DefaultValue;
                         if (defaultValue != null)
                         {
@@ -316,7 +291,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                     else
                     {
                         Debug.Assert(parameterDescriptor == null);
-
                         // If parameterDescriptor is null, this is an undeclared route parameter which only occurs
                         // when source is FromUri. Ignored in request model and among resource parameters but listed
                         // as a simple string here.
@@ -326,17 +300,14 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                 }
             }
         }
-
         private static bool IsBindableWithTypeConverter(Type parameterType)
         {
             if (parameterType == null)
             {
                 return false;
             }
-
             return TypeDescriptor.GetConverter(parameterType).CanConvertFrom(typeof(string));
         }
-
         private static ParameterDescription AddParameterDescription(HelpPageApiModel apiModel,
             ApiParameterDescription apiParameter, ModelDescription typeDescription)
         {
@@ -346,11 +317,9 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                 Documentation = apiParameter.Documentation,
                 TypeDescription = typeDescription,
             };
-
             apiModel.UriParameters.Add(parameterDescription);
             return parameterDescription;
         }
-
         private static void GenerateRequestModelDescription(HelpPageApiModel apiModel, ModelDescriptionGenerator modelGenerator, HelpPageSampleGenerator sampleGenerator)
         {
             ApiDescription apiDescription = apiModel.ApiDescription;
@@ -366,7 +335,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                     apiParameter.ParameterDescriptor.ParameterType == typeof(HttpRequestMessage))
                 {
                     Type parameterType = sampleGenerator.ResolveHttpRequestMessageType(apiDescription);
-
                     if (parameterType != null)
                     {
                         apiModel.RequestModelDescription = modelGenerator.GetOrCreateModelDescription(parameterType);
@@ -374,7 +342,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                 }
             }
         }
-
         private static void GenerateResourceDescription(HelpPageApiModel apiModel, ModelDescriptionGenerator modelGenerator)
         {
             ResponseDescription response = apiModel.ApiDescription.ResponseDescription;
@@ -384,7 +351,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                 apiModel.ResourceDescription = modelGenerator.GetOrCreateModelDescription(responseType);
             }
         }
-
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "The exception is recorded as ErrorMessages.")]
         private static void GenerateSamples(HelpPageApiModel apiModel, HelpPageSampleGenerator sampleGenerator)
         {
@@ -395,7 +361,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                     apiModel.SampleRequests.Add(item.Key, item.Value);
                     LogInvalidSampleAsError(apiModel, item.Value);
                 }
-
                 foreach (var item in sampleGenerator.GetSampleResponses(apiModel.ApiDescription))
                 {
                     apiModel.SampleResponses.Add(item.Key, item.Value);
@@ -409,36 +374,29 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                     HelpPageSampleGenerator.UnwrapException(e).Message));
             }
         }
-
         private static bool TryGetResourceParameter(ApiDescription apiDescription, HttpConfiguration config, out ApiParameterDescription parameterDescription, out Type resourceType)
         {
             parameterDescription = apiDescription.ParameterDescriptions.FirstOrDefault(
                 p => p.Source == ApiParameterSource.FromBody ||
                     (p.ParameterDescriptor != null && p.ParameterDescriptor.ParameterType == typeof(HttpRequestMessage)));
-
             if (parameterDescription == null)
             {
                 resourceType = null;
                 return false;
             }
-
             resourceType = parameterDescription.ParameterDescriptor.ParameterType;
-
             if (resourceType == typeof(HttpRequestMessage))
             {
                 HelpPageSampleGenerator sampleGenerator = config.GetHelpPageSampleGenerator();
                 resourceType = sampleGenerator.ResolveHttpRequestMessageType(apiDescription);
             }
-
             if (resourceType == null)
             {
                 parameterDescription = null;
                 return false;
             }
-
             return true;
         }
-
         private static ModelDescriptionGenerator InitializeModelDescriptionGenerator(HttpConfiguration config)
         {
             ModelDescriptionGenerator modelGenerator = new ModelDescriptionGenerator(config);
@@ -454,7 +412,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
             }
             return modelGenerator;
         }
-
         private static void LogInvalidSampleAsError(HelpPageApiModel apiModel, object sample)
         {
             InvalidSample invalidSample = sample as InvalidSample;

@@ -1,5 +1,4 @@
 using System;
-
 namespace UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions
 {
     /// <summary>
@@ -12,7 +11,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions
         {
             Name = name;
         }
-
         public string Name { get; private set; }
     }
 }

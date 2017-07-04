@@ -6,7 +6,6 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Description;
 using System.Xml.XPath;
 using UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions;
-
 namespace UsedCarElasticSearchAPI.Areas.HelpPage
 {
     /// <summary>
@@ -20,7 +19,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
         private const string PropertyExpression = "/doc/members/member[@name='P:{0}']";
         private const string FieldExpression = "/doc/members/member[@name='F:{0}']";
         private const string ParameterExpression = "param[@name='{0}']";
-
         /// <summary>
         /// Initializes a new instance of the <see cref="XmlDocumentationProvider"/> class.
         /// </summary>
@@ -34,19 +32,16 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
             XPathDocument xpath = new XPathDocument(documentPath);
             _documentNavigator = xpath.CreateNavigator();
         }
-
         public string GetDocumentation(HttpControllerDescriptor controllerDescriptor)
         {
             XPathNavigator typeNode = GetTypeNode(controllerDescriptor.ControllerType);
             return GetTagValue(typeNode, "summary");
         }
-
         public virtual string GetDocumentation(HttpActionDescriptor actionDescriptor)
         {
             XPathNavigator methodNode = GetMethodNode(actionDescriptor);
             return GetTagValue(methodNode, "summary");
         }
-
         public virtual string GetDocumentation(HttpParameterDescriptor parameterDescriptor)
         {
             ReflectedHttpParameterDescriptor reflectedParameterDescriptor = parameterDescriptor as ReflectedHttpParameterDescriptor;
@@ -63,16 +58,13 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                     }
                 }
             }
-
             return null;
         }
-
         public string GetResponseDocumentation(HttpActionDescriptor actionDescriptor)
         {
             XPathNavigator methodNode = GetMethodNode(actionDescriptor);
             return GetTagValue(methodNode, "returns");
         }
-
         public string GetDocumentation(MemberInfo member)
         {
             string memberName = String.Format(CultureInfo.InvariantCulture, "{0}.{1}", GetTypeName(member.DeclaringType), member.Name);
@@ -81,13 +73,11 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
             XPathNavigator propertyNode = _documentNavigator.SelectSingleNode(selectExpression);
             return GetTagValue(propertyNode, "summary");
         }
-
         public string GetDocumentation(Type type)
         {
             XPathNavigator typeNode = GetTypeNode(type);
             return GetTagValue(typeNode, "summary");
         }
-
         private XPathNavigator GetMethodNode(HttpActionDescriptor actionDescriptor)
         {
             ReflectedHttpActionDescriptor reflectedActionDescriptor = actionDescriptor as ReflectedHttpActionDescriptor;
@@ -96,10 +86,8 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                 string selectExpression = String.Format(CultureInfo.InvariantCulture, MethodExpression, GetMemberName(reflectedActionDescriptor.MethodInfo));
                 return _documentNavigator.SelectSingleNode(selectExpression);
             }
-
             return null;
         }
-
         private static string GetMemberName(MethodInfo method)
         {
             string name = String.Format(CultureInfo.InvariantCulture, "{0}.{1}", GetTypeName(method.DeclaringType), method.Name);
@@ -109,10 +97,8 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                 string[] parameterTypeNames = parameters.Select(param => GetTypeName(param.ParameterType)).ToArray();
                 name += String.Format(CultureInfo.InvariantCulture, "({0})", String.Join(",", parameterTypeNames));
             }
-
             return name;
         }
-
         private static string GetTagValue(XPathNavigator parentNode, string tagName)
         {
             if (parentNode != null)
@@ -123,17 +109,14 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                     return node.Value.Trim();
                 }
             }
-
             return null;
         }
-
         private XPathNavigator GetTypeNode(Type type)
         {
             string controllerTypeName = GetTypeName(type);
             string selectExpression = String.Format(CultureInfo.InvariantCulture, TypeExpression, controllerTypeName);
             return _documentNavigator.SelectSingleNode(selectExpression);
         }
-
         private static string GetTypeName(Type type)
         {
             string name = type.FullName;
@@ -143,7 +126,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                 Type genericType = type.GetGenericTypeDefinition();
                 Type[] genericArguments = type.GetGenericArguments();
                 string genericTypeName = genericType.FullName;
-
                 // Trim the generic parameter counts from the name
                 genericTypeName = genericTypeName.Substring(0, genericTypeName.IndexOf('`'));
                 string[] argumentTypeNames = genericArguments.Select(t => GetTypeName(t)).ToArray();
@@ -154,7 +136,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                 // Changing the nested type name from OuterType+InnerType to OuterType.InnerType to match the XML documentation syntax.
                 name = name.Replace("+", ".");
             }
-
             return name;
         }
     }

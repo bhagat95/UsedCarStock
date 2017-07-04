@@ -1,5 +1,4 @@
 using System.Collections.ObjectModel;
-
 namespace UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions
 {
     public class ComplexTypeModelDescription : ModelDescription
@@ -8,7 +7,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions
         {
             Properties = new Collection<ParameterDescription>();
         }
-
         public Collection<ParameterDescription> Properties { get; private set; }
     }
 }

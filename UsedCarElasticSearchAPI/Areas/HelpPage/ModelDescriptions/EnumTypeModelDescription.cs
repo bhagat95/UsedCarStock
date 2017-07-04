@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-
 namespace UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions
 {
     public class EnumTypeModelDescription : ModelDescription
@@ -9,7 +8,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions
         {
             Values = new Collection<EnumValueDescription>();
         }
-
         public Collection<EnumValueDescription> Values { get; private set; }
     }
 }

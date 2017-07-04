@@ -20,7 +20,6 @@
 *
 * Comment version: 1.11.1
 */
-
 /*
 * Note: While Microsoft is not the author of this file, Microsoft is
 * offering you a license subject to the terms of the Microsoft Software
@@ -34,9 +33,7 @@
 * Copyright (c) 2013 Jörn Zaefferer; Licensed MIT
 *
 */
-
 (function($) {
-
 $.extend($.fn, {
 	// http://docs.jquery.com/Plugins/Validation/validate
 	validate: function( options ) {
@@ -49,13 +46,11 @@ $.extend($.fn, {
 		/// <param name="options" type="Object">
 		/// A set of key/value pairs that configure the validate. All options are optional.
 		/// </param>
-
 		// if nothing is selected, return nothing; can't chain anyway
 		if (!this.length) {
 			options && options.debug && window.console && console.warn( "nothing selected, can't validate, returning nothing" );
 			return;
 		}
-
 		// check if a validator for this form was already created
 		var validator = $.data(this[0], 'validator');
 		if ( validator ) {
@@ -128,7 +123,6 @@ $.extend($.fn, {
 		/// validate() needs to be called on the form before checking it using this method.
 		/// </summary>
 		/// <returns type="Boolean" />
-
         if ( $(this[0]).is('form')) {
             return this.validate().form();
         } else {
@@ -148,7 +142,6 @@ $.extend($.fn, {
 		/// <param name="attributes" type="String">
 		/// A space-seperated list of attribute names to remove.
 		/// </param>
-
 		var result = {},
 			$element = this;
 		$.each(attributes.split(/\s/), function(index, value) {
@@ -168,7 +161,6 @@ $.extend($.fn, {
 		/// <param name="argument" type="">
 		/// A list of rules to add or remove.
 		/// </param>
-
 		var element = this[0];
 		
 		if (command) {
@@ -215,7 +207,6 @@ $.extend($.fn, {
 		return data;
 	}
 });
-
 // Custom selectors
 $.extend($.expr[":"], {
 	// http://docs.jquery.com/Plugins/Validation/blank
@@ -225,14 +216,12 @@ $.extend($.expr[":"], {
 	// http://docs.jquery.com/Plugins/Validation/unchecked
 	unchecked: function(a) {return !a.checked;}
 });
-
 // constructor for validator
 $.validator = function( options, form ) {
 	this.settings = $.extend( true, {}, $.validator.defaults, options );
 	this.currentForm = form;
 	this.init();
 };
-
 $.validator.format = function(source, params) {
 	/// <summary>
 	/// Replaces {n} placeholders with arguments.
@@ -246,7 +235,6 @@ $.validator.format = function(source, params) {
 	/// The first argument to insert, or an array of Strings to insert
 	/// </param>
 	/// <returns type="String" />
-
 	if ( arguments.length == 1 ) 
 		return function() {
 			var args = $.makeArray(arguments);
@@ -264,7 +252,6 @@ $.validator.format = function(source, params) {
 	});
 	return source;
 };
-
 $.extend($.validator, {
 	
 	defaults: {
@@ -314,7 +301,6 @@ $.extend($.validator, {
 			$(element).removeClass(errorClass).addClass(validClass);
 		}
 	},
-
 	// http://docs.jquery.com/Plugins/Validation/Validator/setDefaults
 	setDefaults: function(settings) {
 		/// <summary>
@@ -324,10 +310,8 @@ $.extend($.validator, {
 		/// <param name="settings" type="Options">
 		/// Options to set as default.
 		/// </param>
-
 		$.extend( $.validator.defaults, settings );
 	},
-
 	messages: {
 		required: "This field is required.",
 		remote: "Please fix this field.",
@@ -382,11 +366,9 @@ $.extend($.validator, {
 			$(this.currentForm)
 				.validateDelegate(":text, :password, :file, select, textarea", "focusin focusout keyup", delegate)
 				.validateDelegate(":radio, :checkbox, select, option", "click", delegate);
-
 			if (this.settings.invalidHandler)
 				$(this.currentForm).bind("invalid-form.validate", this.settings.invalidHandler);
 		},
-
 		// http://docs.jquery.com/Plugins/Validation/Validator/form
 		form: function() {
 			/// <summary>
@@ -394,7 +376,6 @@ $.extend($.validator, {
 			/// This behaves as a normal submit event, but returns the result.
 			/// </summary>
 			/// <returns type="Boolean" />
-
 			this.checkForm();
 			$.extend(this.submitted, this.errorMap);
 			this.invalid = $.extend({}, this.errorMap);
@@ -422,7 +403,6 @@ $.extend($.validator, {
 			/// An element to validate, must be inside the validated form.
 			/// </param>
 			/// <returns type="Boolean" />
-
 			element = this.clean( element );
 			this.lastElement = element;
 			this.prepareElement( element );
@@ -440,7 +420,6 @@ $.extend($.validator, {
 			this.showErrors();
 			return result;
 		},
-
 		// http://docs.jquery.com/Plugins/Validation/Validator/showErrors
 		showErrors: function(errors) {
 			/// <summary>
@@ -450,7 +429,6 @@ $.extend($.validator, {
 			/// <param name="errors" type="Object">
 			/// One or more key/value pairs of input names and messages.
 			/// </param>
-
 			if(errors) {
 				// add items to error list and map
 				$.extend( this.errorMap, errors );
@@ -478,7 +456,6 @@ $.extend($.validator, {
 			/// Resets input fields to their original value (requires form plugin), removes classes
 			/// indicating invalid elements and hides error messages.
 			/// </summary>
-
 			if ( $.fn.resetForm )
 				$( this.currentForm ).resetForm();
 			this.submitted = {};
@@ -496,7 +473,6 @@ $.extend($.validator, {
 			/// invalidHandler-option.
 			/// </summary>
 			/// <returns type="Number" />
-
 			return this.objectLength(this.invalid);
 		},
 		
@@ -775,7 +751,6 @@ $.extend($.validator, {
 		idOrName: function(element) {
 			return this.groups[element.name] || (this.checkable(element) ? element.name : element.id || element.name);
 		},
-
 		checkable: function( element ) {
 			return /radio|checkbox/i.test(element.type);
 		},
@@ -877,7 +852,6 @@ $.extend($.validator, {
 		/// <param name="rules" type="Options">
 		/// The compound rules
 		/// </param>
-
 		className.constructor == String ?
 			this.classRuleSettings[className] = rules :
 			$.extend(this.classRuleSettings, className);
@@ -897,7 +871,6 @@ $.extend($.validator, {
 	attributeRules: function(element) {
 		var rules = {};
 		var $element = $(element);
-
 		for (var method in $.validator.methods) {
 			var value = $element.attr(method);
 			if (value) {
@@ -1026,16 +999,13 @@ $.extend($.validator, {
 		/// jQuery.validator.format(value). When undefined, an already existing message is used 
 		/// (handy for localization), otherwise the field-specific messages have to be defined.
 		/// </param>
-
 		$.validator.methods[name] = method;
 		$.validator.messages[name] = message != undefined ? message : $.validator.messages[name];
 		if (method.length < 3) {
 			$.validator.addClassRules(name, $.validator.normalizeRule(name));
 		}
 	},
-
 	methods: {
-
 		// http://docs.jquery.com/Plugins/Validation/Methods/required
 		required: function(value, element, param) {
 			// check if dependency is met
@@ -1073,7 +1043,6 @@ $.extend($.validator, {
 			if ( previous.old === value ) {
 				return previous.valid;
 			}
-
 			previous.old = value;
 			var validator = this;
 			this.startRequest(element);
@@ -1106,7 +1075,6 @@ $.extend($.validator, {
 			}, param));
 			return "pending";
 		},
-
 		// http://docs.jquery.com/Plugins/Validation/Methods/minlength
 		minlength: function(value, element, param) {
 			return this.optional(element) || this.getLength($.trim(value), element) >= param;
@@ -1181,9 +1149,7 @@ $.extend($.validator, {
 			var nCheck = 0,
 				nDigit = 0,
 				bEven = false;
-
 			value = value.replace(/\D/g, "");
-
 			for (var n = value.length - 1; n >= 0; n--) {
 				var cDigit = value.charAt(n);
 				var nDigit = parseInt(cDigit, 10);
@@ -1194,7 +1160,6 @@ $.extend($.validator, {
 				nCheck += nDigit;
 				bEven = !bEven;
 			}
-
 			return (nCheck % 10) == 0;
 		},
 		
@@ -1217,12 +1182,9 @@ $.extend($.validator, {
 	}
 	
 });
-
 // deprecated, use $.validator.format instead
 $.format = $.validator.format;
-
 })(jQuery);
-
 // ajax mode: abort
 // usage: $.ajax({ mode: "abort"[, port: "uniqueport"]});
 // if mode:"abort" is used, the previous request on that port (port can be undefined) is aborted via XMLHttpRequest.abort() 
@@ -1248,17 +1210,14 @@ $.format = $.validator.format;
 				if ( pendingRequests[port] ) {
 					pendingRequests[port].abort();
 				}
-
 			    return (pendingRequests[port] = ajax.apply(this, arguments));
 		    }
 		    return ajax.apply(this, arguments);
 	    };
     }
 })(jQuery);
-
 // provides cross-browser focusin and focusout events
 // IE has native support, in other browsers, use event caputuring (neither bubbles)
-
 // provides delegate(type: String, delegate: Selector, handler: Callback) plugin for easier event delegation
 // handler is only called when $(event.target).is(delegate), in the scope of the jquery-object for event.target 
 ;(function($) {

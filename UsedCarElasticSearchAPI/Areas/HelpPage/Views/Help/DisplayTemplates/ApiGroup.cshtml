@@ -4,13 +4,11 @@
 @using UsedCarElasticSearchAPI.Areas.HelpPage
 @using UsedCarElasticSearchAPI.Areas.HelpPage.Models
 @model IGrouping<HttpControllerDescriptor, ApiDescription>
-
 @{
     var controllerDocumentation = ViewBag.DocumentationProvider != null ? 
         ViewBag.DocumentationProvider.GetDocumentation(Model.Key) : 
         null;
 }
-
 <h2 id="@Model.Key.ControllerName">@Model.Key.ControllerName</h2>
 @if (!String.IsNullOrEmpty(controllerDocumentation))
 {

@@ -22,19 +22,14 @@
             </tr>
         </table>
     </div>
-
     <div>
         <h2>Search by ID</h2>
-
         <input type="text" size="5" id="stuId" />
         <input type="button" value="Search" onclick="find();" />
-
         <p id="st"></p>
     </div>
     <script src="Scripts/jquery-2.1.1.js"></script>
     <script type="text/javascript">
-
-
         var uri = 'UsedCars/GetAllCars';
         $(document).ready(function () {
             $.getJSON(uri)
@@ -53,7 +48,6 @@
                 });
             });
         });
-
         function formatItem(item) {
             return item.Name + '-' + item.PercentageMarks;
         }

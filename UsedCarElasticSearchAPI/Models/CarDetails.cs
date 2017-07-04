@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
 namespace UsedCarElasticSearchAPI.Models
 {
     public class CarDetails
@@ -15,7 +14,6 @@ namespace UsedCarElasticSearchAPI.Models
         public String City { get; set; }
         
         public int Kilometer { get; set; }
-
         public String FuelType { get; set; }
         public int Year { get; set; }
         //public String Color { get; set; }

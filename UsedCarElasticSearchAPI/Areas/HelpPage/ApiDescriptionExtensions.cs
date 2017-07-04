@@ -2,7 +2,6 @@ using System;
 using System.Text;
 using System.Web;
 using System.Web.Http.Description;
-
 namespace UsedCarElasticSearchAPI.Areas.HelpPage
 {
     public static class ApiDescriptionExtensions
@@ -24,7 +23,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                 string[] queryKeys = HttpUtility.ParseQueryString(query).AllKeys;
                 queryKeyString = String.Join("_", queryKeys);
             }
-
             StringBuilder friendlyPath = new StringBuilder();
             friendlyPath.AppendFormat("{0}-{1}",
                 description.HttpMethod.Method,

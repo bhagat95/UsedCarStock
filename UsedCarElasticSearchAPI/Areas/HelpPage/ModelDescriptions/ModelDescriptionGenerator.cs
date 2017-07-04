@@ -10,7 +10,6 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
-
 namespace UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions
 {
     /// <summary>
@@ -59,7 +58,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions
                 }
             },
         };
-
         // Modify this to add more default documentations.
         private readonly IDictionary<Type, string> DefaultTypeDocumentation = new Dictionary<Type, string>
         {
@@ -83,22 +81,17 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions
             { typeof(DateTimeOffset), "date" },
             { typeof(Boolean), "boolean" },
         };
-
         private Lazy<IModelDocumentationProvider> _documentationProvider;
-
         public ModelDescriptionGenerator(HttpConfiguration config)
         {
             if (config == null)
             {
                 throw new ArgumentNullException("config");
             }
-
             _documentationProvider = new Lazy<IModelDocumentationProvider>(() => config.Services.GetDocumentationProvider() as IModelDocumentationProvider);
             GeneratedModels = new Dictionary<string, ModelDescription>(StringComparer.OrdinalIgnoreCase);
         }
-
         public Dictionary<string, ModelDescription> GeneratedModels { get; private set; }
-
         private IModelDocumentationProvider DocumentationProvider
         {
             get
@@ -106,20 +99,17 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions
                 return _documentationProvider.Value;
             }
         }
-
         public ModelDescription GetOrCreateModelDescription(Type modelType)
         {
             if (modelType == null)
             {
                 throw new ArgumentNullException("modelType");
             }
-
             Type underlyingType = Nullable.GetUnderlyingType(modelType);
             if (underlyingType != null)
             {
                 modelType = underlyingType;
             }
-
             ModelDescription modelDescription;
             string modelName = ModelNameHelper.GetModelName(modelType);
             if (GeneratedModels.TryGetValue(modelName, out modelDescription))
@@ -135,24 +125,19 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions
                             modelDescription.ModelType.FullName,
                             modelType.FullName));
                 }
-
                 return modelDescription;
             }
-
             if (DefaultTypeDocumentation.ContainsKey(modelType))
             {
                 return GenerateSimpleTypeModelDescription(modelType);
             }
-
             if (modelType.IsEnum)
             {
                 return GenerateEnumTypeModelDescription(modelType);
             }
-
             if (modelType.IsGenericType)
             {
                 Type[] genericArguments = modelType.GetGenericArguments();
-
                 if (genericArguments.Length == 1)
                 {
                     Type enumerableType = typeof(IEnumerable<>).MakeGenericType(genericArguments);
@@ -168,7 +153,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions
                     {
                         return GenerateDictionaryModelDescription(modelType, genericArguments[0], genericArguments[1]);
                     }
-
                     Type keyValuePairType = typeof(KeyValuePair<,>).MakeGenericType(genericArguments);
                     if (keyValuePairType.IsAssignableFrom(modelType))
                     {
@@ -176,31 +160,25 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions
                     }
                 }
             }
-
             if (modelType.IsArray)
             {
                 Type elementType = modelType.GetElementType();
                 return GenerateCollectionModelDescription(modelType, elementType);
             }
-
             if (modelType == typeof(NameValueCollection))
             {
                 return GenerateDictionaryModelDescription(modelType, typeof(string), typeof(string));
             }
-
             if (typeof(IDictionary).IsAssignableFrom(modelType))
             {
                 return GenerateDictionaryModelDescription(modelType, typeof(object), typeof(object));
             }
-
             if (typeof(IEnumerable).IsAssignableFrom(modelType))
             {
                 return GenerateCollectionModelDescription(modelType, typeof(object));
             }
-
             return GenerateComplexTypeModelDescription(modelType);
         }
-
         // Change this to provide different name for the member.
         private static string GetMemberName(MemberInfo member, bool hasDataContractAttribute)
         {
@@ -209,7 +187,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions
             {
                 return jsonProperty.PropertyName;
             }
-
             if (hasDataContractAttribute)
             {
                 DataMemberAttribute dataMember = member.GetCustomAttribute<DataMemberAttribute>();
@@ -218,10 +195,8 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions
                     return dataMember.Name;
                 }
             }
-
             return member.Name;
         }
-
         private static bool ShouldDisplayMember(MemberInfo member, bool hasDataContractAttribute)
         {
             JsonIgnoreAttribute jsonIgnore = member.GetCustomAttribute<JsonIgnoreAttribute>();
@@ -229,11 +204,9 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions
             IgnoreDataMemberAttribute ignoreDataMember = member.GetCustomAttribute<IgnoreDataMemberAttribute>();
             NonSerializedAttribute nonSerialized = member.GetCustomAttribute<NonSerializedAttribute>();
             ApiExplorerSettingsAttribute apiExplorerSetting = member.GetCustomAttribute<ApiExplorerSettingsAttribute>();
-
             bool hasMemberAttribute = member.DeclaringType.IsEnum ?
                 member.GetCustomAttribute<EnumMemberAttribute>() != null :
                 member.GetCustomAttribute<DataMemberAttribute>() != null;
-
             // Display member only if all the followings are true:
             // no JsonIgnoreAttribute
             // no XmlIgnoreAttribute
@@ -248,7 +221,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions
                 (apiExplorerSetting == null || !apiExplorerSetting.IgnoreApi) &&
                 (!hasDataContractAttribute || hasMemberAttribute);
         }
-
         private string CreateDefaultDocumentation(Type type)
         {
             string documentation;
@@ -260,14 +232,11 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions
             {
                 documentation = DocumentationProvider.GetDocumentation(type);
             }
-
             return documentation;
         }
-
         private void GenerateAnnotations(MemberInfo property, ParameterDescription propertyModel)
         {
             List<ParameterAnnotation> annotations = new List<ParameterAnnotation>();
-
             IEnumerable<Attribute> attributes = property.GetCustomAttributes();
             foreach (Attribute attribute in attributes)
             {
@@ -282,7 +251,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions
                         });
                 }
             }
-
             // Rearrange the annotations
             annotations.Sort((x, y) =>
             {
@@ -295,17 +263,14 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions
                 {
                     return 1;
                 }
-
                 // Sort the rest based on alphabetic order of the documentation
                 return String.Compare(x.Documentation, y.Documentation, StringComparison.OrdinalIgnoreCase);
             });
-
             foreach (ParameterAnnotation annotation in annotations)
             {
                 propertyModel.Annotations.Add(annotation);
             }
         }
-
         private CollectionModelDescription GenerateCollectionModelDescription(Type modelType, Type elementType)
         {
             ModelDescription collectionModelDescription = GetOrCreateModelDescription(elementType);
@@ -318,10 +283,8 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions
                     ElementDescription = collectionModelDescription
                 };
             }
-
             return null;
         }
-
         private ModelDescription GenerateComplexTypeModelDescription(Type modelType)
         {
             ComplexTypeModelDescription complexModelDescription = new ComplexTypeModelDescription
@@ -330,7 +293,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions
                 ModelType = modelType,
                 Documentation = CreateDefaultDocumentation(modelType)
             };
-
             GeneratedModels.Add(complexModelDescription.Name, complexModelDescription);
             bool hasDataContractAttribute = modelType.GetCustomAttribute<DataContractAttribute>() != null;
             PropertyInfo[] properties = modelType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
@@ -342,18 +304,15 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions
                     {
                         Name = GetMemberName(property, hasDataContractAttribute)
                     };
-
                     if (DocumentationProvider != null)
                     {
                         propertyModel.Documentation = DocumentationProvider.GetDocumentation(property);
                     }
-
                     GenerateAnnotations(property, propertyModel);
                     complexModelDescription.Properties.Add(propertyModel);
                     propertyModel.TypeDescription = GetOrCreateModelDescription(property.PropertyType);
                 }
             }
-
             FieldInfo[] fields = modelType.GetFields(BindingFlags.Public | BindingFlags.Instance);
             foreach (FieldInfo field in fields)
             {
@@ -363,25 +322,20 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions
                     {
                         Name = GetMemberName(field, hasDataContractAttribute)
                     };
-
                     if (DocumentationProvider != null)
                     {
                         propertyModel.Documentation = DocumentationProvider.GetDocumentation(field);
                     }
-
                     complexModelDescription.Properties.Add(propertyModel);
                     propertyModel.TypeDescription = GetOrCreateModelDescription(field.FieldType);
                 }
             }
-
             return complexModelDescription;
         }
-
         private DictionaryModelDescription GenerateDictionaryModelDescription(Type modelType, Type keyType, Type valueType)
         {
             ModelDescription keyModelDescription = GetOrCreateModelDescription(keyType);
             ModelDescription valueModelDescription = GetOrCreateModelDescription(valueType);
-
             return new DictionaryModelDescription
             {
                 Name = ModelNameHelper.GetModelName(modelType),
@@ -390,7 +344,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions
                 ValueModelDescription = valueModelDescription
             };
         }
-
         private EnumTypeModelDescription GenerateEnumTypeModelDescription(Type modelType)
         {
             EnumTypeModelDescription enumDescription = new EnumTypeModelDescription
@@ -417,15 +370,12 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions
                 }
             }
             GeneratedModels.Add(enumDescription.Name, enumDescription);
-
             return enumDescription;
         }
-
         private KeyValuePairModelDescription GenerateKeyValuePairModelDescription(Type modelType, Type keyType, Type valueType)
         {
             ModelDescription keyModelDescription = GetOrCreateModelDescription(keyType);
             ModelDescription valueModelDescription = GetOrCreateModelDescription(valueType);
-
             return new KeyValuePairModelDescription
             {
                 Name = ModelNameHelper.GetModelName(modelType),
@@ -434,7 +384,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions
                 ValueModelDescription = valueModelDescription
             };
         }
-
         private ModelDescription GenerateSimpleTypeModelDescription(Type modelType)
         {
             SimpleTypeModelDescription simpleModelDescription = new SimpleTypeModelDescription
@@ -444,7 +393,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions
                 Documentation = CreateDefaultDocumentation(modelType)
             };
             GeneratedModels.Add(simpleModelDescription.Name, simpleModelDescription);
-
             return simpleModelDescription;
         }
     }

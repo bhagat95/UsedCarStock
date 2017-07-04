@@ -40,10 +40,6 @@ window.matchMedia = window.matchMedia || (function(doc, undefined){
   };
   
 })(document);
-
-
-
-
 /*! Respond.js v1.2.0: min/max-width media query polyfill. (c) Scott Jehl. MIT/GPLv2 Lic. j.mp/respondjs  */
 (function( win ){
 	//exposed namespace
@@ -78,13 +74,11 @@ window.matchMedia = window.matchMedia || (function(doc, undefined){
 				i		= 0,
 				//vars for loop:
 				sheet, href, media, isCSS;
-
 			for( ; i < sl; i++ ){
 				sheet	= sheets[ i ],
 				href	= sheet.href,
 				media	= sheet.media,
 				isCSS	= sheet.rel && sheet.rel.toLowerCase() === "stylesheet";
-
 				//only links plz and prevent re-parsing
 				if( !!href && isCSS && !parsedSheets[ href ] ){
 					// selectivizr exposes css through the rawCssText expando
@@ -131,7 +125,6 @@ window.matchMedia = window.matchMedia || (function(doc, undefined){
 				//vars used in loop
 				i			= 0,
 				j, fullq, thisq, eachq, eql;
-
 			//if path exists, tack on trailing slash
 			if( href.length ){ href += "/"; }	
 				
@@ -143,7 +136,6 @@ window.matchMedia = window.matchMedia || (function(doc, undefined){
 				ql = 1;
 			}
 			
-
 			for( ; i < ql; i++ ){
 				j	= 0;
 				
@@ -172,7 +164,6 @@ window.matchMedia = window.matchMedia || (function(doc, undefined){
 					} );
 				}	
 			}
-
 			applyMedia();
 		},
         	
@@ -224,7 +215,6 @@ window.matchMedia = window.matchMedia || (function(doc, undefined){
 				styleBlocks	= {},
 				lastLink	= links[ links.length-1 ],
 				now 		= (new Date()).getTime();
-
 			//throttle resize calls	
 			if( fromResize && lastCall && now - lastCall < resizeThrottle ){
 				clearTimeout( resizeDefer );

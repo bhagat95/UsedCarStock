@@ -6,26 +6,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 using Elasticsearch.Net.ConnectionPool;
-
-
 namespace Carwale.DAL.CoreDAL
 {
     public sealed class ElasticClientInstance
     {
         private static readonly ElasticClientInstance _clientInstance = new ElasticClientInstance();
-
         private ElasticClient _client;
-
         static ElasticClientInstance()
         {
-
         }
-
         public static ElasticClient GetInstance()
         {
             return _clientInstance._client;
         }
-
         private ElasticClientInstance()
         {
             try
@@ -37,19 +30,11 @@ namespace Carwale.DAL.CoreDAL
                     connectionPool,
                     defaultIndex: ConfigurationManager.AppSettings["ElasticIndexName"]
                 ).SetTimeout(1000 * 30);     // 30 seconds timeout
-                //.MaximumRetries(3)         // 3 times retry
-                //.SniffOnConnectionFault(true)
-                //.SniffOnStartup(true)
-                //.SniffLifeSpan(TimeSpan.FromMinutes(1));
-
                 _client = new ElasticClient(settings);
             }
             catch (Exception)
             {
-                //var objErr = new ExceptionHandler(ex, "ElasticClientInstance.ElasticClientInstance()" + ex.InnerException);
-                //objErr.LogException();
             }
-
         }
     }
 }

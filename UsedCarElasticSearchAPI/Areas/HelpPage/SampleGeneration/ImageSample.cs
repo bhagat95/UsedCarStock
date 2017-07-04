@@ -1,5 +1,4 @@
 using System;
-
 namespace UsedCarElasticSearchAPI.Areas.HelpPage
 {
     /// <summary>
@@ -19,20 +18,16 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
             }
             Src = src;
         }
-
         public string Src { get; private set; }
-
         public override bool Equals(object obj)
         {
             ImageSample other = obj as ImageSample;
             return other != null && Src == other.Src;
         }
-
         public override int GetHashCode()
         {
             return Src.GetHashCode();
         }
-
         public override string ToString()
         {
             return Src;

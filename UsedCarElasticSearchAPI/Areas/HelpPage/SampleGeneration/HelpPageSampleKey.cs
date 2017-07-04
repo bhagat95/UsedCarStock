@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net.Http.Headers;
-
 namespace UsedCarElasticSearchAPI.Areas.HelpPage
 {
     /// <summary>
@@ -20,13 +19,11 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
             {
                 throw new ArgumentNullException("mediaType");
             }
-
             ActionName = String.Empty;
             ControllerName = String.Empty;
             MediaType = mediaType;
             ParameterNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         }
-
         /// <summary>
         /// Creates a new <see cref="HelpPageSampleKey"/> based on media type and CLR type.
         /// </summary>
@@ -39,10 +36,8 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
             {
                 throw new ArgumentNullException("type");
             }
-
             ParameterType = type;
         }
-
         /// <summary>
         /// Creates a new <see cref="HelpPageSampleKey"/> based on <see cref="SampleDirection"/>, controller name, action name and parameter names.
         /// </summary>
@@ -68,13 +63,11 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
             {
                 throw new ArgumentNullException("parameterNames");
             }
-
             ControllerName = controllerName;
             ActionName = actionName;
             ParameterNames = new HashSet<string>(parameterNames, StringComparer.OrdinalIgnoreCase);
             SampleDirection = sampleDirection;
         }
-
         /// <summary>
         /// Creates a new <see cref="HelpPageSampleKey"/> based on media type, <see cref="SampleDirection"/>, controller name, action name and parameter names.
         /// </summary>
@@ -90,10 +83,8 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
             {
                 throw new ArgumentNullException("mediaType");
             }
-
             MediaType = mediaType;
         }
-
         /// <summary>
         /// Gets the name of the controller.
         /// </summary>
@@ -101,7 +92,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
         /// The name of the controller.
         /// </value>
         public string ControllerName { get; private set; }
-
         /// <summary>
         /// Gets the name of the action.
         /// </summary>
@@ -109,7 +99,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
         /// The name of the action.
         /// </value>
         public string ActionName { get; private set; }
-
         /// <summary>
         /// Gets the media type.
         /// </summary>
@@ -117,19 +106,15 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
         /// The media type.
         /// </value>
         public MediaTypeHeaderValue MediaType { get; private set; }
-
         /// <summary>
         /// Gets the parameter names.
         /// </summary>
         public HashSet<string> ParameterNames { get; private set; }
-
         public Type ParameterType { get; private set; }
-
         /// <summary>
         /// Gets the <see cref="SampleDirection"/>.
         /// </summary>
         public SampleDirection? SampleDirection { get; private set; }
-
         public override bool Equals(object obj)
         {
             HelpPageSampleKey otherKey = obj as HelpPageSampleKey;
@@ -137,7 +122,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
             {
                 return false;
             }
-
             return String.Equals(ControllerName, otherKey.ControllerName, StringComparison.OrdinalIgnoreCase) &&
                 String.Equals(ActionName, otherKey.ActionName, StringComparison.OrdinalIgnoreCase) &&
                 (MediaType == otherKey.MediaType || (MediaType != null && MediaType.Equals(otherKey.MediaType))) &&
@@ -145,7 +129,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                 SampleDirection == otherKey.SampleDirection &&
                 ParameterNames.SetEquals(otherKey.ParameterNames);
         }
-
         public override int GetHashCode()
         {
             int hashCode = ControllerName.ToUpperInvariant().GetHashCode() ^ ActionName.ToUpperInvariant().GetHashCode();
@@ -165,7 +148,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
             {
                 hashCode ^= parameterName.ToUpperInvariant().GetHashCode();
             }
-
             return hashCode;
         }
     }

@@ -5,7 +5,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-
 namespace UsedCarElasticSearchAPI.Areas.HelpPage
 {
     /// <summary>
@@ -15,7 +14,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
     {
         internal const int DefaultCollectionSize = 2;
         private readonly SimpleTypeObjectGenerator SimpleObjectGenerator = new SimpleTypeObjectGenerator();
-
         /// <summary>
         /// Generates an object for a given type. The type needs to be public, have a public default constructor and settable public properties/fields. Currently it supports the following types:
         /// Simple types: <see cref="int"/>, <see cref="string"/>, <see cref="Enum"/>, <see cref="DateTime"/>, <see cref="Uri"/>, etc.
@@ -34,7 +32,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
         {
             return GenerateObject(type, new Dictionary<Type, object>());
         }
-
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Here we just want to return null if anything goes wrong.")]
         private object GenerateObject(Type type, Dictionary<Type, object> createdObjectReferences)
         {
@@ -44,49 +41,40 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                 {
                     return SimpleObjectGenerator.GenerateObject(type);
                 }
-
                 if (type.IsArray)
                 {
                     return GenerateArray(type, DefaultCollectionSize, createdObjectReferences);
                 }
-
                 if (type.IsGenericType)
                 {
                     return GenerateGenericType(type, DefaultCollectionSize, createdObjectReferences);
                 }
-
                 if (type == typeof(IDictionary))
                 {
                     return GenerateDictionary(typeof(Hashtable), DefaultCollectionSize, createdObjectReferences);
                 }
-
                 if (typeof(IDictionary).IsAssignableFrom(type))
                 {
                     return GenerateDictionary(type, DefaultCollectionSize, createdObjectReferences);
                 }
-
                 if (type == typeof(IList) ||
                     type == typeof(IEnumerable) ||
                     type == typeof(ICollection))
                 {
                     return GenerateCollection(typeof(ArrayList), DefaultCollectionSize, createdObjectReferences);
                 }
-
                 if (typeof(IList).IsAssignableFrom(type))
                 {
                     return GenerateCollection(type, DefaultCollectionSize, createdObjectReferences);
                 }
-
                 if (type == typeof(IQueryable))
                 {
                     return GenerateQueryable(type, DefaultCollectionSize, createdObjectReferences);
                 }
-
                 if (type.IsEnum)
                 {
                     return GenerateEnum(type);
                 }
-
                 if (type.IsPublic || type.IsNestedPublic)
                 {
                     return GenerateComplexObject(type, createdObjectReferences);
@@ -97,10 +85,8 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                 // Returns null if anything fails
                 return null;
             }
-
             return null;
         }
-
         private static object GenerateGenericType(Type type, int collectionSize, Dictionary<Type, object> createdObjectReferences)
         {
             Type genericTypeDefinition = type.GetGenericTypeDefinition();
@@ -108,17 +94,14 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
             {
                 return GenerateNullable(type, createdObjectReferences);
             }
-
             if (genericTypeDefinition == typeof(KeyValuePair<,>))
             {
                 return GenerateKeyValuePair(type, createdObjectReferences);
             }
-
             if (IsTuple(genericTypeDefinition))
             {
                 return GenerateTuple(type, createdObjectReferences);
             }
-
             Type[] genericArguments = type.GetGenericArguments();
             if (genericArguments.Length == 1)
             {
@@ -129,19 +112,16 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                     Type collectionType = typeof(List<>).MakeGenericType(genericArguments);
                     return GenerateCollection(collectionType, collectionSize, createdObjectReferences);
                 }
-
                 if (genericTypeDefinition == typeof(IQueryable<>))
                 {
                     return GenerateQueryable(type, collectionSize, createdObjectReferences);
                 }
-
                 Type closedCollectionType = typeof(ICollection<>).MakeGenericType(genericArguments[0]);
                 if (closedCollectionType.IsAssignableFrom(type))
                 {
                     return GenerateCollection(type, collectionSize, createdObjectReferences);
                 }
             }
-
             if (genericArguments.Length == 2)
             {
                 if (genericTypeDefinition == typeof(IDictionary<,>))
@@ -149,22 +129,18 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                     Type dictionaryType = typeof(Dictionary<,>).MakeGenericType(genericArguments);
                     return GenerateDictionary(dictionaryType, collectionSize, createdObjectReferences);
                 }
-
                 Type closedDictionaryType = typeof(IDictionary<,>).MakeGenericType(genericArguments[0], genericArguments[1]);
                 if (closedDictionaryType.IsAssignableFrom(type))
                 {
                     return GenerateDictionary(type, collectionSize, createdObjectReferences);
                 }
             }
-
             if (type.IsPublic || type.IsNestedPublic)
             {
                 return GenerateComplexObject(type, createdObjectReferences);
             }
-
             return null;
         }
-
         private static object GenerateTuple(Type type, Dictionary<Type, object> createdObjectReferences)
         {
             Type[] genericArgs = type.GetGenericArguments();
@@ -183,7 +159,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
             object result = Activator.CreateInstance(type, parameterValues);
             return result;
         }
-
         private static bool IsTuple(Type genericTypeDefinition)
         {
             return genericTypeDefinition == typeof(Tuple<>) ||
@@ -195,7 +170,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                 genericTypeDefinition == typeof(Tuple<,,,,,,>) ||
                 genericTypeDefinition == typeof(Tuple<,,,,,,,>);
         }
-
         private static object GenerateKeyValuePair(Type keyValuePairType, Dictionary<Type, object> createdObjectReferences)
         {
             Type[] genericArgs = keyValuePairType.GetGenericArguments();
@@ -212,7 +186,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
             object result = Activator.CreateInstance(keyValuePairType, keyObject, valueObject);
             return result;
         }
-
         private static object GenerateArray(Type arrayType, int size, Dictionary<Type, object> createdObjectReferences)
         {
             Type type = arrayType.GetElementType();
@@ -225,15 +198,12 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                 result.SetValue(element, i);
                 areAllElementsNull &= element == null;
             }
-
             if (areAllElementsNull)
             {
                 return null;
             }
-
             return result;
         }
-
         private static object GenerateDictionary(Type dictionaryType, int size, Dictionary<Type, object> createdObjectReferences)
         {
             Type typeK = typeof(object);
@@ -244,7 +214,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                 typeK = genericArgs[0];
                 typeV = genericArgs[1];
             }
-
             object result = Activator.CreateInstance(dictionaryType);
             MethodInfo addMethod = dictionaryType.GetMethod("Add") ?? dictionaryType.GetMethod("TryAdd");
             MethodInfo containsMethod = dictionaryType.GetMethod("Contains") ?? dictionaryType.GetMethod("ContainsKey");
@@ -257,7 +226,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                     // Cannot generate a valid key
                     return null;
                 }
-
                 bool containsKey = (bool)containsMethod.Invoke(result, new object[] { newKey });
                 if (!containsKey)
                 {
@@ -265,10 +233,8 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                     addMethod.Invoke(result, new object[] { newKey, newValue });
                 }
             }
-
             return result;
         }
-
         private static object GenerateEnum(Type enumType)
         {
             Array possibleValues = Enum.GetValues(enumType);
@@ -278,7 +244,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
             }
             return null;
         }
-
         private static object GenerateQueryable(Type queryableType, int size, Dictionary<Type, object> createdObjectReferences)
         {
             bool isGeneric = queryableType.IsGenericType;
@@ -302,10 +267,8 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                 MethodInfo asQueryableMethod = typeof(Queryable).GetMethod("AsQueryable", new[] { argumentType });
                 return asQueryableMethod.Invoke(null, new[] { list });
             }
-
             return Queryable.AsQueryable((IEnumerable)list);
         }
-
         private static object GenerateCollection(Type collectionType, int size, Dictionary<Type, object> createdObjectReferences)
         {
             Type type = collectionType.IsGenericType ?
@@ -321,32 +284,26 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                 addMethod.Invoke(result, new object[] { element });
                 areAllElementsNull &= element == null;
             }
-
             if (areAllElementsNull)
             {
                 return null;
             }
-
             return result;
         }
-
         private static object GenerateNullable(Type nullableType, Dictionary<Type, object> createdObjectReferences)
         {
             Type type = nullableType.GetGenericArguments()[0];
             ObjectGenerator objectGenerator = new ObjectGenerator();
             return objectGenerator.GenerateObject(type, createdObjectReferences);
         }
-
         private static object GenerateComplexObject(Type type, Dictionary<Type, object> createdObjectReferences)
         {
             object result = null;
-
             if (createdObjectReferences.TryGetValue(type, out result))
             {
                 // The object has been created already, just return it. This will handle the circular reference case.
                 return result;
             }
-
             if (type.IsValueType)
             {
                 result = Activator.CreateInstance(type);
@@ -359,7 +316,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                     // Cannot instantiate the type because it doesn't have a default constructor
                     return null;
                 }
-
                 result = defaultCtor.Invoke(new object[0]);
             }
             createdObjectReferences.Add(type, result);
@@ -367,7 +323,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
             SetPublicFields(type, result, createdObjectReferences);
             return result;
         }
-
         private static void SetPublicProperties(Type type, object obj, Dictionary<Type, object> createdObjectReferences)
         {
             PropertyInfo[] properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
@@ -381,7 +336,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                 }
             }
         }
-
         private static void SetPublicFields(Type type, object obj, Dictionary<Type, object> createdObjectReferences)
         {
             FieldInfo[] fields = type.GetFields(BindingFlags.Public | BindingFlags.Instance);
@@ -392,12 +346,10 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                 field.SetValue(obj, fieldValue);
             }
         }
-
         private class SimpleTypeObjectGenerator
         {
             private long _index = 0;
             private static readonly Dictionary<Type, Func<long, object>> DefaultGenerators = InitializeGenerators();
-
             [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "These are simple type factories and cannot be split up.")]
             private static Dictionary<Type, Func<long, object>> InitializeGenerators()
             {
@@ -441,12 +393,10 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage
                     },
                 };
             }
-
             public static bool CanGenerateObject(Type type)
             {
                 return DefaultGenerators.ContainsKey(type);
             }
-
             public object GenerateObject(Type type)
             {
                 return DefaultGenerators[type](++_index);

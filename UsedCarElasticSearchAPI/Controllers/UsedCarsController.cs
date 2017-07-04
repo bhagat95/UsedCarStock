@@ -22,24 +22,27 @@ namespace UsedCarElasticSearchAPI.Controllers
 {
     public class UsedCarsController : Controller
     {
+        private ElasticSearchRepository _elasticRepository;
+        private UsedCarRepository _usedCarRepositoty;
+        public UsedCarsController()
+        {
+            _elasticRepository = new  ElasticSearchRepository();
+            _usedCarRepositoty = new UsedCarRepository();
+        }
         
          //GET: UsedCars
         public ActionResult All()
         {
-
-
-            
-            ElasticSearchRepository elasticRepo = new ElasticSearchRepository();
-
-            IEnumerable<UsedCarModel> cars = elasticRepo.Search(0, "all", 0, 0);
-            
-            //UsedCarRepository usedCarRepositoty = new UsedCarRepository();
-            //IEnumerable<UsedCarCitiesModel> cities = usedCarRepositoty.GetCitiesMemCache();
-            
-            //ViewBag.Cars = cars;
-          //  ViewBag.Cities = cities;
-           
-            return View("~/Views/UsedCars/SearchResult.cshtml", cars);
+            try
+            {
+                IEnumerable<UsedCarModel> cars = _elasticRepository.Search(0, "all", 0, 0);
+                return View("~/Views/UsedCars/SearchResult.cshtml", cars);
+            }
+            catch (Exception)
+            {
+                return View("~/Views/Shared/Error.cshtml");
+                throw;
+            }
         }
        
         public ActionResult Filter()
@@ -49,56 +52,42 @@ namespace UsedCarElasticSearchAPI.Controllers
             string City = Request.QueryString["city"];
             int MinBudget = Convert.ToInt32(Request.QueryString["minbudget"]);
             int MaxBudget = Convert.ToInt32(Request.QueryString["maxbudget"]);
-            ElasticSearchRepository elasticRepo = new ElasticSearchRepository();
-            IEnumerable<UsedCarModel> cars = elasticRepo.Search(Page, City, MinBudget, MaxBudget);
+            try
+            {
+                IEnumerable<UsedCarModel> cars = _elasticRepository.Search(Page, City, MinBudget, MaxBudget);
+                return View("~/Views/Shared/_bindCarResult.cshtml", cars);
+            }
+            catch (Exception)
+            {
+                return View("~/Views/Shared/Error.cshtml");
+            }
             
-            return View("~/Views/Shared/_bindCarResult.cshtml", cars);
         }
-
-    
-
+        
         public ActionResult CarProfile(int id)
         {
             try
             {
                 UsedCarModel usedCarModel = new UsedCarModel();
-                UsedCarRepository usedCarRepositoty = new UsedCarRepository();
-                usedCarModel = usedCarRepositoty.GetSingleCarMemCache(id);
-
-                //ImageProcessorRmq imageProcessorES = new ImageProcessorRmq();
-                //imageProcessorES.SaveImage("https://imgd.aeplcdn.com/891x501/cw/ucp/stockApiImg/2697XMS_1085006_1_8031299.jpg?q=85",
-                //    ImageFormat.Jpeg, id);
+                usedCarModel = _usedCarRepositoty.GetSingleCarMemCache(id);
                 return View("~/Views/UsedCars/ProfileView.cshtml", usedCarModel);
             }
-            catch (Exception err)
+            catch (Exception)
             {
-
-                throw;
+                return View("~/Views/Shared/Error.cshtml");
             }
-
-
         }
         public ActionResult CarCities()
         {
             try
             {
-
-                UsedCarRepository usedCarRepositoty = new UsedCarRepository();
-                IEnumerable<UsedCarCitiesModel> cities = usedCarRepositoty.GetCitiesMemCache();
-
-
-
+                IEnumerable<UsedCarCitiesModel> cities = _usedCarRepositoty.GetCitiesMemCache();
                 return View("~/Views/Shared/_bindCities.cshtml", cities);
             }
-            catch (Exception err)
+            catch (Exception)
             {
-
-                throw;
+                return View("~/Views/Shared/Error.cshtml");
             }
-
-
         }
-        
-        
     }
 }

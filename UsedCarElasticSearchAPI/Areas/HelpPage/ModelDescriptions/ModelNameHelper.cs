@@ -2,7 +2,6 @@ using System;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-
 namespace UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions
 {
     internal static class ModelNameHelper
@@ -15,7 +14,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions
             {
                 return modelNameAttribute.Name;
             }
-
             string modelName = type.Name;
             if (type.IsGenericType)
             {
@@ -23,13 +21,11 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions
                 Type genericType = type.GetGenericTypeDefinition();
                 Type[] genericArguments = type.GetGenericArguments();
                 string genericTypeName = genericType.Name;
-
                 // Trim the generic parameter counts from the name
                 genericTypeName = genericTypeName.Substring(0, genericTypeName.IndexOf('`'));
                 string[] argumentTypeNames = genericArguments.Select(t => GetModelName(t)).ToArray();
                 modelName = String.Format(CultureInfo.InvariantCulture, "{0}Of{1}", genericTypeName, String.Join("And", argumentTypeNames));
             }
-
             return modelName;
         }
     }

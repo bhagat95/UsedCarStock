@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.Net.Http.Headers;
 using System.Web.Http.Description;
 using UsedCarElasticSearchAPI.Areas.HelpPage.ModelDescriptions;
-
 namespace UsedCarElasticSearchAPI.Areas.HelpPage.Models
 {
     /// <summary>
@@ -21,27 +20,22 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage.Models
             SampleResponses = new Dictionary<MediaTypeHeaderValue, object>();
             ErrorMessages = new Collection<string>();
         }
-
         /// <summary>
         /// Gets or sets the <see cref="ApiDescription"/> that describes the API.
         /// </summary>
         public ApiDescription ApiDescription { get; set; }
-
         /// <summary>
         /// Gets or sets the <see cref="ParameterDescription"/> collection that describes the URI parameters for the API.
         /// </summary>
         public Collection<ParameterDescription> UriParameters { get; private set; }
-
         /// <summary>
         /// Gets or sets the documentation for the request.
         /// </summary>
         public string RequestDocumentation { get; set; }
-
         /// <summary>
         /// Gets or sets the <see cref="ModelDescription"/> that describes the request body.
         /// </summary>
         public ModelDescription RequestModelDescription { get; set; }
-
         /// <summary>
         /// Gets the request body parameter descriptions.
         /// </summary>
@@ -52,12 +46,10 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage.Models
                 return GetParameterDescriptions(RequestModelDescription);
             }
         }
-
         /// <summary>
         /// Gets or sets the <see cref="ModelDescription"/> that describes the resource.
         /// </summary>
         public ModelDescription ResourceDescription { get; set; }
-
         /// <summary>
         /// Gets the resource property descriptions.
         /// </summary>
@@ -68,22 +60,18 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage.Models
                 return GetParameterDescriptions(ResourceDescription);
             }
         }
-
         /// <summary>
         /// Gets the sample requests associated with the API.
         /// </summary>
         public IDictionary<MediaTypeHeaderValue, object> SampleRequests { get; private set; }
-
         /// <summary>
         /// Gets the sample responses associated with the API.
         /// </summary>
         public IDictionary<MediaTypeHeaderValue, object> SampleResponses { get; private set; }
-
         /// <summary>
         /// Gets the error messages associated with this model.
         /// </summary>
         public Collection<string> ErrorMessages { get; private set; }
-
         private static IList<ParameterDescription> GetParameterDescriptions(ModelDescription modelDescription)
         {
             ComplexTypeModelDescription complexTypeModelDescription = modelDescription as ComplexTypeModelDescription;
@@ -91,7 +79,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage.Models
             {
                 return complexTypeModelDescription.Properties;
             }
-
             CollectionModelDescription collectionModelDescription = modelDescription as CollectionModelDescription;
             if (collectionModelDescription != null)
             {
@@ -101,7 +88,6 @@ namespace UsedCarElasticSearchAPI.Areas.HelpPage.Models
                     return complexTypeModelDescription.Properties;
                 }
             }
-
             return null;
         }
     }
