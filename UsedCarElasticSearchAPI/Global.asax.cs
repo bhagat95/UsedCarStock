@@ -27,7 +27,7 @@ namespace UsedCarElasticSearchAPI
         }
         public void GlobalRabbitMQSubscriber()
         {
-            int Id;
+            
             try
             {
                 String Queue = "UsedCarElasticSearchQueue";
@@ -38,6 +38,7 @@ namespace UsedCarElasticSearchAPI
                 var consumer = new EventingBasicConsumer(channel);
                 consumer.Received += (model, ea) =>
                 {
+                    int Id;
                     var body = ea.Body;
                     var message = Encoding.UTF8.GetString(body);
                     Int32.TryParse(message, out Id);

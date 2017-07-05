@@ -59,7 +59,7 @@ namespace UsedCarElasticSearchAPI.Controllers
             }
             catch (Exception)
             {
-                return View("~/Views/Shared/Error.cshtml");
+                return View("~/Views/Shared/_NotFoundError.cshtml");
             }
             
         }
@@ -74,7 +74,7 @@ namespace UsedCarElasticSearchAPI.Controllers
             }
             catch (Exception)
             {
-                return View("~/Views/Shared/Error.cshtml");
+                return View("~/Views/Shared/_NotFoundError.cshtml");
             }
         }
         public ActionResult CarCities()
@@ -86,7 +86,7 @@ namespace UsedCarElasticSearchAPI.Controllers
             }
             catch (Exception)
             {
-                return View("~/Views/Shared/Error.cshtml");
+                return View("~/Views/Shared/_NotFoundError.cshtml");
             }
         }
     }

@@ -82,12 +82,14 @@ $(document).ready(function () {
         var minBudget = $('#minBudget').val();
         var maxBudget = $('#maxBudget').val();
         if (minBudget < MINBUDGET || !minBudget) {
-            alert("min budget should be more than " + MINBUDGET);
+            $('#tooltip').html("min budget should be more than " + MINBUDGET+ "<br/>and max budget should be less than " + MAXBUDGET);
+           /* alert("min budget should be more than " + MINBUDGET);*/
             $('#minBudget').val(MINBUDGET);
             minBudget = MINBUDGET;
         }
         if (maxBudget > MAXBUDGET || !maxBudget || maxBudget < MINBUDGET) {
-            alert("max budget should be less than " + MAXBUDGET);
+            $('#tooltip').html("min budget should be more than " + MINBUDGET + "<br/>and max budget should be less than " + MAXBUDGET);
+           /* alert("max budget should be less than " + MAXBUDGET);*/
             $('#maxBudget').val(MAXBUDGET);
             maxBudget = MAXBUDGET;
         }

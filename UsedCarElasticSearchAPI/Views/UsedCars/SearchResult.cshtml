@@ -25,6 +25,8 @@
             <input id="minBudget" class="numbersOnly" placeholder="min value" size="10" />
             <input id="maxBudget" class="numbersOnly" placeholder="max value" size="10" />
             <input id="gobtn" type="button" value="Go" />
+            <br />
+            <span id="tooltip"></span>
         </div>
         <div id="listing-section">
             @{Html.RenderPartial("~/Views/Shared/_bindCarResult.cshtml", Model);}

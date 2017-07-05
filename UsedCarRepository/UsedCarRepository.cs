@@ -93,7 +93,7 @@ namespace UsedCarDAL
                     var Param = new DynamicParameters();
                     Param.Add("Id", id);
                     var Result = con.Query<UsedCarModel>("GetSingleStock_AS", Param,
-                           commandType: CommandType.StoredProcedure).First();
+                           commandType: CommandType.StoredProcedure).FirstOrDefault();
                     return (UsedCarModel)Result;
                 }
             }
@@ -136,10 +136,11 @@ namespace UsedCarDAL
                     param.Add("VersionId", usedCarModel.VersionId);
                     usedCarModel.ImgUri = ImagePath;
                     param.Add("ImgUri", usedCarModel.ImgUri);
-                    int id = (int)con.Query<int>("AddStock_AS", param, commandType: CommandType.StoredProcedure).First();
+                    int id = (int)con.Query<int>("AddStock_AS", param, commandType: CommandType.StoredProcedure).FirstOrDefault();
                     imageData.Id = id;
-                    AddImageDataRabbitMQ(imageData);
                     AddIdRabbitMQ(id);
+                    AddImageDataRabbitMQ(imageData);
+                    
                     memCacheManager.DeleteFromCache("cities_AS");
                     return id;
                 }
@@ -150,11 +151,11 @@ namespace UsedCarDAL
                 throw;
             }
         }
-        public bool UpdateCarDetails(int id, UsedCarModel usedCarModel)
+        public int UpdateCarDetails(int id, UsedCarModel usedCarModel)
         {
             try
             {
-                bool isUpdated; 
+                int isUpdated; 
                 using (var con = Connection)
                 {
                     var param = new DynamicParameters();
@@ -170,13 +171,13 @@ namespace UsedCarDAL
                     param.Add("ModelId", usedCarModel.ModelId);
                     param.Add("VersionId", usedCarModel.VersionId);
                     param.Add("ImgUri", usedCarModel.ImgUri);
-                    isUpdated = con.Query<bool>("EditStock_AS", param, commandType: CommandType.StoredProcedure).First();
+                    isUpdated = con.Query<int>("EditStock_AS", param, commandType: CommandType.StoredProcedure).FirstOrDefault();
                     memCacheManager.DeleteFromCache(Convert.ToString(id));
                 }
                 AddIdRabbitMQ(id);
                 return isUpdated;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 throw;
             }
@@ -190,12 +191,12 @@ namespace UsedCarDAL
                 IConnection connection = connectionFactory.CreateConnection();
                 IModel channel = connection.CreateModel();
                 channel.QueueDeclare(UsedCarElasticSearchQueue, false, false, false, null);
-                channel.BasicPublish("", UsedCarElasticSearchQueue, null, message);
+                channel.BasicPublish("", "UsedCarElasticSearchQueue", null, message);//UsedCarElasticSearchQueue
                 channel.Close();
                 connection.Close();
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return false;
             }
@@ -215,7 +216,7 @@ namespace UsedCarDAL
                 connection.Close();
                 return true;
             }
-            catch(Exception)
+            catch(Exception e)
             {
                 return false;
             }
